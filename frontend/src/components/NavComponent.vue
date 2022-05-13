@@ -76,7 +76,7 @@
 
             <q-item-section> Tasks </q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/register">
+          <q-item v-if="!userAuth()" clickable v-ripple to="/register">
             <q-item-section avatar>
               <q-icon name="person_add" />
             </q-item-section>

@@ -6,4 +6,4 @@ axios.defaults.baseURL = "http://localhost:4000/";
 
 
 // //to globalise token application
-// axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
+// axios.defaults.headers.common['Authorization'] = "auth-token " + localStorage.getItem("token");
