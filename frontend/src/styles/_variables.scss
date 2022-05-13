@@ -1,0 +1,57 @@
+$cs: (
+    1: black,
+    2: red,
+    3: #FCBE2C,
+    4: #fd9f28,
+    5: white,
+);
+
+
+.decorNone {
+  text-decoration: none;
+}
+.Cwhite {
+  color: map-get($cs, 5);
+  &:hover {
+    color: map-get($cs, 1);
+  }
+}
+
+
+/* Scroll bar stylings */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: map-get($cs, 5);  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: map-get($cs, 4);    
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: map-get($cs, 3);  }
+
+
+
+
+    .flex {
+      display: flex;
+    }
+    .spaceb {
+      justify-content: space-between;
+    }
+
+    .flexend {
+      justify-self: flex-end;
+    }
+
+    .alignc {
+      align-items: center;
+    }
