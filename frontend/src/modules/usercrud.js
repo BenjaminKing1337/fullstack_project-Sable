@@ -15,7 +15,7 @@ const GetUsers = () => {
   });
   const GetAllUsers = async () => {
     try {
-      await fetch("https://sableplan.herokuapp.com/users")
+      await fetch("https://localhost:4000/users")
         .then((Res) => Res.json())
         .then((Data) => {
           State.value.Users = Data;
@@ -38,13 +38,13 @@ const GetUsers = () => {
   //       Task: State.value.NewTaskItem,
   //     }),
   //   };
-  //   fetch("https://sableplan.herokuapp.com/tasks/new", RequestOptions).then(() => {
+  //   fetch("https://localhost:4000/tasks/new", RequestOptions).then(() => {
   //     GetAllTasks(); // Updates page
   //   });
   // };
 
   const DeleteUser = (_id) => {
-    fetch("https://sableplan.herokuapp.com/users/delete/" + _id, {
+    fetch("https://localhost:4000/users/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllUsers(); // Updates page
@@ -63,7 +63,7 @@ const GetUsers = () => {
         pass: State.value.newPass,
       }),
     };
-    fetch("https://sableplan.herokuapp.com/users/update/" + UserId.value, RequestOptions)
+    fetch("https://localhost:4000/users/update/" + UserId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -74,7 +74,7 @@ const GetUsers = () => {
   const User = ref({});
   const GetSpecificUser = async () => {
     try {
-      fetch("https://sableplan.herokuapp.com/users/")
+      fetch("https://localhost:4000/users/")
         .then((Res) => Res.json())
         .then((Data) => {
           User.value = Data.filter((U) => U._id === UserId.value);
