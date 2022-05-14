@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: Sable
+  description: MongoDB ExpressJS NodeJS REST API
+  version: 1.0.0
+servers:
+  - url: https://sable.herokuapp.com/
+    description: Heroku remote server
+  - url: http://localhost:4000/
+    description: Localhost development server
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: auth-token
+
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        author:
+          type: string
+
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        pass:
+          type: string
+        date:
+          type: string
+        userLevel:
+          type: string
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - User
+      summary: Register User
+      description: Register a new User in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+
+      responses:
+        201:
+          description: User created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  _id:
+                    type: string
+
+  /users/login:
+    post:
+      tags:
+        - User
+      summary: Login User
+      description: Login a User in order to get JWT token (auth-token)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                pass:
+                  type: string
+
+      responses:
+        200:
+          description: User logged in succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  data:
+                    type: string
+
+  /users:
+    get:
+      tags:
+        - User
+      summary: View All Users
+      description: Retrieves a list of Users.
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: A list of Users in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /tools:
+    post:
+      tags:
+        - Tasks
+      summary: Add New Task
+      description: Add a new Task
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+
+      responses:
+        201:
+          description: Task added succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+    
+    get:
+      tags:
+        - Tasks
+      summary: View All Tasks
+      description: Retrieves a list of Tasks as objects.
+      responses:
+        200:
+          description: A list of Task objects in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+
+  /tools/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: View Specific Task
+      description: Retrieves a specific Task based on its id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      responses:
+        200:
+          description: A Task in the format of an object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+
+    put:
+      tags:
+        - Tasks
+      summary: Edit Task Information
+      description: Updates a specific Task based on its id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+
+      responses:
+        201:
+          description: Task updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+
+    delete:
+      tags:
+        - Tasks
+      summary: Delete Task
+      description: Deletes a specific Task based on it id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+
+      responses:
+        201:
+          description: Task deleted succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"

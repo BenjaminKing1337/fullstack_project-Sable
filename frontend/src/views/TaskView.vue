@@ -4,7 +4,7 @@
 
     <div v-for="Item in Task" :key="Item._id">
       Author:
-      <h4>{{ Item.Author }}</h4>
+      <h4>{{ Item.author }}</h4>
       Task Item:
       <p>{{ Item.Task }}</p>
     </div>

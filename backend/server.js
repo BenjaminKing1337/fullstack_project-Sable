@@ -7,12 +7,12 @@ const app = express();
 
 
 // UNCOMMENT WHEN SWAGGER AND YAML HAS BEEN INSTALLED AND SETUP
-// // swagger deps
-// const swaggerUi = require('swagger-ui-express');
-// const yaml = require('yamljs');
-// // setup swagger
-// const swaggerDefinition = yaml.load('./swagger.yaml');
-// app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+// swagger deps
+const swaggerUi = require('swagger-ui-express');
+const yaml = require('yamljs');
+// setup swagger
+const swaggerDefinition = yaml.load('./swagger.yaml');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // dot-env dep
 require("dotenv-flow").config();

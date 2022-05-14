@@ -34,8 +34,8 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        Author: State.value.NewAuthor,
-        Task: State.value.NewTaskItem,
+        author: State.value.NewAuthor,
+        task: State.value.NewTaskItem,
       }),
     };
     fetch("http://localhost:4000/tasks/new", RequestOptions).then(() => {
@@ -59,8 +59,8 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        Author: State.value.NewAuthor,
-        Task: State.value.NewTaskItem,
+        author: State.value.NewAuthor,
+        task: State.value.NewTaskItem,
       }),
     };
     fetch("http://localhost:4000/tasks/update/" + TaskId.value, RequestOptions)

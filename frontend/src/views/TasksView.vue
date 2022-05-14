@@ -24,7 +24,7 @@
       <div v-for="Task in State.Tasks" :key="Task._id" class="taskitem">
         <router-link :to="`/task/${Task._id}`">
           <h4>
-            {{ Task.Author }}
+            {{ Task.author }}
           </h4>
           <p>
             {{ Task.Task }}
