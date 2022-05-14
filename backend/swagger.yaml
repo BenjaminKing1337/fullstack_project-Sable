@@ -4,10 +4,10 @@ info:
   description: MongoDB ExpressJS NodeJS REST API
   version: 1.0.0
 servers:
-  - url: https://sable.herokuapp.com/
-    description: Heroku remote server
   - url: http://localhost:4000/
     description: Localhost development server
+  - url: https://sable.herokuapp.com/
+    description: Heroku remote server
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -35,16 +35,13 @@ components:
           type: string
         pass:
           type: string
-        date:
-          type: string
-        userLevel:
-          type: string
+          
 
 paths:
   /users/register:
     post:
       tags:
-        - User
+        - Users
       summary: Register User
       description: Register a new User in the database
       requestBody:
@@ -70,7 +67,7 @@ paths:
   /users/login:
     post:
       tags:
-        - User
+        - Users
       summary: Login User
       description: Login a User in order to get JWT token (auth-token)
       requestBody:
@@ -101,7 +98,7 @@ paths:
   /users:
     get:
       tags:
-        - User
+        - Users
       summary: View All Users
       description: Retrieves a list of Users.
       security:
@@ -116,7 +113,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/User"
 
-  /tools:
+  /tasks:
     post:
       tags:
         - Tasks
@@ -154,7 +151,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Task"
 
-  /tools/{id}:
+  /tasks/{id}:
     get:
       tags:
         - Tasks
