@@ -135,6 +135,9 @@
 .myOrange {
   background-color: map-get($cs, 4) !important;
 }
+.myOrange_color {
+  color: map-get($cs, 4) !important;
+}
 #sign {
   font-size: 14px;
   align-items: center;
