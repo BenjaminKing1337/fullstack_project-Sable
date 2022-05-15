@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <q-page class="q-pa-xl">
     <h1>New Task</h1>
     <div class="create">
       <div class="new">
@@ -10,13 +10,13 @@
         <br />
         <input type="text" placeholder="Description" v-model="State.NewDescription" />
         <br />
-        <input type="text" placeholder="Deadline" v-model="State.NewDeadline" />
+        <input type="date" placeholder="Deadline" v-model="State.NewDeadline" />
         <br />
-        <input type="text" placeholder="Status" v-model="State.NewStatus" />
-        <br />
+        <input type="number" placeholder="Status" v-model="State.NewStatus" />
+        <br /> Optional: 
         <input type="checkbox" placeholder="Optional" v-model="State.NewIs_Optional" />
         <br />
-        <button @click="NewTask()">New Task</button>
+        <button @click="NewTask()">Create New Task</button>
       </div>
 
       <div class="preview">
@@ -62,7 +62,7 @@
         <button @click="DeleteTask(Task._id)">Delete Task</button>
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 

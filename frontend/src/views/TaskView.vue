@@ -28,12 +28,12 @@
     <input type="text" placeholder="Description" v-model="State.NewDescription" />
     <span> Description : {{ State.NewDescription }} </span>
     <br />
-    <input type="text" placeholder="Deadline" v-model="State.NewDeadline" />
+    <input type="date" placeholder="Deadline" v-model="State.NewDeadline" />
     <span> Deadline : {{ State.NewDeadline }} </span>
     <br />
-    <input type="text" placeholder="Status" v-model="State.NewStatus" />
+    <input type="number" placeholder="Status" v-model="State.NewStatus" />
     <span> Status : {{ State.NewStatus }} </span>
-    <br />
+    <br /> Optional:
     <input type="checkbox" placeholder="Optional" v-model="State.NewIs_Optional" />
     <span> Optional : {{ State.NewIs_Optional }} </span>
     <br />

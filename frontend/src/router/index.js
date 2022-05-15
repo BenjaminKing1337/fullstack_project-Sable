@@ -41,6 +41,11 @@ const routes = [
     name: "projects",
     component: () => import("../views/ProjectsView.vue"),
   },
+  {
+    path: "/netlify",
+    name: "netlify",
+    component: () => import("../views/NetlifyTestView.vue"),
+  },
 ];
 
 const xRouter = createRouter({
