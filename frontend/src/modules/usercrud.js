@@ -26,7 +26,7 @@ const GetUsers = () => {
     }
   };
 
-  // const NewTask = () => {
+  // const NewUser = () => {
   //   const RequestOptions = {
   //     method: "POST",
   //     headers: {
