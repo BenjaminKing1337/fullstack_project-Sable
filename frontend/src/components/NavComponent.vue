@@ -69,6 +69,13 @@
             <q-item-section> Sable </q-item-section>
           </q-item>
 
+          <q-item v-if="userAuth()" active clickable v-ripple to="/projects">
+            <q-item-section avatar>
+              <q-icon name="cases" />
+            </q-item-section>
+
+            <q-item-section> Projects </q-item-section>
+          </q-item>
           <q-item v-if="userAuth()" active clickable v-ripple to="/tasks">
             <q-item-section avatar>
               <q-icon name="task" />
