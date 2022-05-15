@@ -8,6 +8,14 @@
         <br />
         <input type="text" placeholder="Task" v-model="State.NewTaskItem" />
         <br />
+        <input type="text" placeholder="Description" v-model="State.NewDescription" />
+        <br />
+        <input type="text" placeholder="Deadline" v-model="State.NewDeadline" />
+        <br />
+        <input type="text" placeholder="Status" v-model="State.NewStatus" />
+        <br />
+        <input type="checkbox" placeholder="Optional" v-model="State.NewIs_Optional" />
+        <br />
         <button @click="NewTask()">New Task</button>
       </div>
 
@@ -16,6 +24,14 @@
         <span> Author : {{ State.NewAuthor }} </span>
         <br />
         <span> Task : {{ State.NewTaskItem }} </span>
+        <br />
+        <span> Description : {{ State.NewDescription }} </span>
+        <br />
+        <span> Deadline : {{ State.NewDeadline }} </span>
+        <br />
+        <span> Status : {{ State.NewStatus }} </span>
+        <br />
+        <span> Optional : {{ State.NewIs_Optional }} </span>
       </div>
     </div>
 
@@ -27,7 +43,19 @@
             {{ Task.author }}
           </h4>
           <p>
-            {{ Task.Task }}
+            {{ Task.task }}
+          </p>
+          <p>
+            {{ Task.description }}
+          </p>
+          <p>
+            {{ Task.deadline }}
+          </p>
+          <p>
+            {{ Task.status }}
+          </p>
+          <p>
+            {{ Task.is_optional }}
           </p>
           <button @click="EditTask(Task.value._id)">Edit Task</button>
         </router-link>

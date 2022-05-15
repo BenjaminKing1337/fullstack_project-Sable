@@ -2,6 +2,11 @@
 const Mongoose = require("mongoose");
 const TasksSchema = new Mongoose.Schema({
   task: String,
+  description: String,
+  status: Number,
+  is_optional: Boolean,
+  created_at: String,
+  deadline: String,
   author: String,
 });
 
