@@ -4,7 +4,7 @@
   "description": "Sable - Project Planning App",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node server.js",
+    "start": "cross-env NODE_ENV=development nodemon server.js",
     "start-dev": "cross-env NODE_ENV=development nodemon server.js",
     "test": "cross-env NODE_ENV=test mocha --recursive --exit"
   },
