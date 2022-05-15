@@ -1,11 +1,10 @@
 $cs: (
-    1: black,
-    2: red,
-    3: #FCBE2C,
-    4: #fd9f28,
-    5: white,
+  1: black,
+  2: red,
+  3: #fcbe2c,
+  4: #fd9f28,
+  5: white,
 );
-
 
 .decorNone {
   text-decoration: none;
@@ -17,41 +16,43 @@ $cs: (
   }
 }
 
-
 /* Scroll bar stylings */
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: map-get($cs, 5);  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: map-get($cs, 4);    
-    border-radius: 5px;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: map-get($cs, 5);
+}
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: map-get($cs, 3);  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: map-get($cs, 4);
+  border-radius: 5px;
+}
 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: map-get($cs, 3);
+}
 
+.my-card {
+  width: 100%;
+  max-width: 250px;
+}
+.flex {
+  display: flex;
+}
+.spaceb {
+  justify-content: space-between;
+}
 
+.flexend {
+  justify-self: flex-end;
+}
 
-    .flex {
-      display: flex;
-    }
-    .spaceb {
-      justify-content: space-between;
-    }
-
-    .flexend {
-      justify-self: flex-end;
-    }
-
-    .alignc {
-      align-items: center;
-    }
+.alignc {
+  align-items: center;
+}

@@ -4,40 +4,40 @@
     <div class="create">
       <div class="new">
         <h4>Create New Task</h4>
-        <input type="text" placeholder="Author" v-model="State.NewAuthor" />
+        <input type="text" placeholder="Author" v-model="tState.NewAuthor" />
         <br />
-        <input type="text" placeholder="Task" v-model="State.NewTaskItem" />
+        <input type="text" placeholder="Task" v-model="tState.NewTaskItem" />
         <br />
-        <input type="text" placeholder="Description" v-model="State.NewDescription" />
+        <input type="text" placeholder="Description" v-model="tState.NewDescription" />
         <br />
-        <input type="date" placeholder="Deadline" v-model="State.NewDeadline" />
+        <input type="date" placeholder="Deadline" v-model="tState.NewDeadline" />
         <br />
-        <input type="number" placeholder="Status" v-model="State.NewStatus" />
+        <input type="number" placeholder="Status" v-model="tState.NewStatus" />
         <br /> Optional: 
-        <input type="checkbox" placeholder="Optional" v-model="State.NewIs_Optional" />
+        <input type="checkbox" placeholder="Optional" v-model="tState.NewIs_Optional" />
         <br />
         <button @click="NewTask()">Create New Task</button>
       </div>
 
       <div class="preview">
         <h4>Preview</h4>
-        <span> Author : {{ State.NewAuthor }} </span>
+        <span> Author : {{ tState.NewAuthor }} </span>
         <br />
-        <span> Task : {{ State.NewTaskItem }} </span>
+        <span> Task : {{ tState.NewTaskItem }} </span>
         <br />
-        <span> Description : {{ State.NewDescription }} </span>
+        <span> Description : {{ tState.NewDescription }} </span>
         <br />
-        <span> Deadline : {{ State.NewDeadline }} </span>
+        <span> Deadline : {{ tState.NewDeadline }} </span>
         <br />
-        <span> Status : {{ State.NewStatus }} </span>
+        <span> Status : {{ tState.NewStatus }} </span>
         <br />
-        <span> Optional : {{ State.NewIs_Optional }} </span>
+        <span> Optional : {{ tState.NewIs_Optional }} </span>
       </div>
     </div>
 
     <h1>All Tasks</h1>
     <div class="tasklist">
-      <div v-for="Task in State.Tasks" :key="Task._id" class="taskitem">
+      <div v-for="Task in tState.Tasks" :key="Task._id" class="taskitem">
         <router-link :to="`/task/${Task._id}`">
           <h4>
             {{ Task.author }}
@@ -62,6 +62,8 @@
         <button @click="DeleteTask(Task._id)">Delete Task</button>
       </div>
     </div>
+
+    
   </q-page>
 </template>
 
@@ -72,7 +74,7 @@ import { onMounted } from "vue";
 
 export default {
   setup() {
-    const { State, GetAllTasks, NewTask, DeleteTask, EditTask } = Taskcrud();
+    const { tState, GetAllTasks, NewTask, DeleteTask, EditTask } = Taskcrud();
 
     onMounted(() => {
       GetAllTasks();
@@ -80,7 +82,7 @@ export default {
 
     // GetAll();
     return {
-      State,
+      tState,
       GetAllTasks,
       NewTask,
       DeleteTask,

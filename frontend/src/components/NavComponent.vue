@@ -76,6 +76,13 @@
 
             <q-item-section> Projects </q-item-section>
           </q-item>
+          <q-item v-if="userAuth()" active clickable v-ripple to="/lists">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+
+            <q-item-section> Lists </q-item-section>
+          </q-item>
           <q-item v-if="userAuth()" active clickable v-ripple to="/tasks">
             <q-item-section avatar>
               <q-icon name="task" />

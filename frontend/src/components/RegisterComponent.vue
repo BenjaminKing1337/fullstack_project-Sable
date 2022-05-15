@@ -81,7 +81,7 @@ export default {
     const pass = ref(null);
     const accept = ref(false);
     const router = useRouter();
-    const { State, GetAllUsers, /* NewUser, */ DeleteUser, EditUser } =
+    const { uState, GetAllUsers, /* NewUser, */ DeleteUser, EditUser } =
       Usercrud();
 
     // onMounted(() => {
@@ -93,7 +93,7 @@ export default {
       email,
       pass,
       accept,
-      State,
+      uState,
       GetAllUsers,
       // NewUser,
       DeleteUser,

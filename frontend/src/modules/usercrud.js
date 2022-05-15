@@ -8,7 +8,7 @@ const GetUsers = () => {
   const UserId = computed(() => Route.params.id);
   // console.log("userId: ", UserId);
 
-  const State = ref({
+  const uState = ref({
     newName: "",
     newPass: "",
     Users: {},
@@ -18,7 +18,7 @@ const GetUsers = () => {
       await fetch("http://localhost:4000/users")
         .then((Res) => Res.json())
         .then((Data) => {
-          State.value.Users = Data;
+          uState.value.Users = Data;
          
         });
     } catch (Error) {
@@ -34,8 +34,8 @@ const GetUsers = () => {
   //       // "auth-token": state.token
   //     },
   //     body: JSON.stringify({
-  //       author: State.value.NewAuthor,
-  //       Task: State.value.NewTaskItem,
+  //       author: uState.value.NewAuthor,
+  //       Task: uState.value.NewTaskItem,
   //     }),
   //   };
   //   fetch("http://localhost:4000/tasks/new", RequestOptions).then(() => {
@@ -59,8 +59,8 @@ const GetUsers = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        name: State.value.newName,
-        pass: State.value.newPass,
+        name: uState.value.newName,
+        pass: uState.value.newPass,
       }),
     };
     fetch("http://localhost:4000/users/update/" + UserId.value, RequestOptions)
@@ -88,7 +88,7 @@ const GetUsers = () => {
     User,
     UserId,
     GetSpecificUser,
-    State,
+    uState,
     GetAllUsers,
     // NewUser,
     DeleteUser,
