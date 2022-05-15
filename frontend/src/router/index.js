@@ -36,6 +36,11 @@ const routes = [
     component: () => import("../components/LogOut.vue"),
     beforeEnter: AuthGuard
   },
+  {
+    path: "/projects",
+    name: "projects",
+    component: () => import("../views/ProjectsView.vue"),
+  },
 ];
 
 const xRouter = createRouter({
