@@ -8,7 +8,7 @@ const GetTasks = () => {
   const TaskId = computed(() => Route.params.id);
   console.log("taskId: ", TaskId);
 
-  const State = ref({
+  const tState = ref({
     NewAuthor: "",
     NewDescription: "",
     NewStatus: "",
@@ -23,7 +23,7 @@ const GetTasks = () => {
       await fetch("http://localhost:4000/tasks")
         .then((Res) => Res.json())
         .then((Data) => {
-          State.value.Tasks = Data;
+          tState.value.Tasks = Data;
         });
     } catch (Error) {
       console.log(Error);
@@ -38,12 +38,12 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        author: State.value.NewAuthor,
-        description: State.value.NewDescription,
-        status: State.value.NewStatus,
-        is_optional: State.value.NewIs_Optional,
-        deadline: State.value.NewDeadline,
-        task: State.value.NewTaskItem,
+        author: tState.value.NewAuthor,
+        description: tState.value.NewDescription,
+        status: tState.value.NewStatus,
+        is_optional: tState.value.NewIs_Optional,
+        deadline: tState.value.NewDeadline,
+        task: tState.value.NewTaskItem,
       }),
     };
     fetch("http://localhost:4000/tasks/new", RequestOptions).then(() => {
@@ -67,12 +67,12 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        author: State.value.NewAuthor,
-        description: State.value.NewDescription,
-        status: State.value.NewStatus,
-        is_optional: State.value.NewIs_Optional,
-        deadline: State.value.NewDeadline,
-        task: State.value.NewTaskItem,
+        author: tState.value.NewAuthor,
+        description: tState.value.NewDescription,
+        status: tState.value.NewStatus,
+        is_optional: tState.value.NewIs_Optional,
+        deadline: tState.value.NewDeadline,
+        task: tState.value.NewTaskItem,
       }),
     };
     fetch("http://localhost:4000/tasks/update/" + TaskId.value, RequestOptions)
@@ -100,7 +100,7 @@ const GetTasks = () => {
     Task,
     TaskId,
     GetSpecificTask,
-    State,
+    tState,
     GetAllTasks,
     NewTask,
     DeleteTask,

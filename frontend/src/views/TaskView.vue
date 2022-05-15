@@ -19,23 +19,23 @@
 
     <hr />
 
-    <input type="text" placeholder="Author" v-model="State.NewAuthor" />
-    <span> Author : {{ State.NewAuthor }} </span>
+    <input type="text" placeholder="Author" v-model="tState.NewAuthor" />
+    <span> Author : {{ tState.NewAuthor }} </span>
     <br />
-    <input type="text" placeholder="Task" v-model="State.NewTaskItem" />
-    <span> Task : {{ State.NewTaskItem }} </span>
+    <input type="text" placeholder="Task" v-model="tState.NewTaskItem" />
+    <span> Task : {{ tState.NewTaskItem }} </span>
     <br />
-    <input type="text" placeholder="Description" v-model="State.NewDescription" />
-    <span> Description : {{ State.NewDescription }} </span>
+    <input type="text" placeholder="Description" v-model="tState.NewDescription" />
+    <span> Description : {{ tState.NewDescription }} </span>
     <br />
-    <input type="text" placeholder="Deadline" v-model="State.NewDeadline" />
-    <span> Deadline : {{ State.NewDeadline }} </span>
+    <input type="date" placeholder="Deadline" v-model="tState.NewDeadline" />
+    <span> Deadline : {{ tState.NewDeadline }} </span>
     <br />
-    <input type="text" placeholder="Status" v-model="State.NewStatus" />
-    <span> Status : {{ State.NewStatus }} </span>
-    <br />
-    <input type="checkbox" placeholder="Optional" v-model="State.NewIs_Optional" />
-    <span> Optional : {{ State.NewIs_Optional }} </span>
+    <input type="number" placeholder="Status" v-model="tState.NewStatus" />
+    <span> Status : {{ tState.NewStatus }} </span>
+    <br /> Optional:
+    <input type="checkbox" placeholder="Optional" v-model="tState.NewIs_Optional" />
+    <span> Optional : {{ tState.NewIs_Optional }} </span>
     <br />
     <button @click="EditTask()">Update Task</button>
 
@@ -48,11 +48,11 @@ import Taskcrud from "../modules/taskcrud";
 
 export default {
   setup() {
-    const { EditTask, State, GetSpecificTask, Task, TaskId } = Taskcrud();
+    const { EditTask, tState, GetSpecificTask, Task, TaskId } = Taskcrud();
 
     GetSpecificTask();
 
-    return { Task, TaskId, EditTask, State };
+    return { Task, TaskId, EditTask, tState };
   },
 };
 </script>

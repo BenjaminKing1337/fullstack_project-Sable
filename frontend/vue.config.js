@@ -12,7 +12,7 @@ module.exports = defineConfig({
     loaderOptions: {
       sass: {
         additionalData: `
-          @import "@/styles/_variables.scss";
+          @import '@/styles/_variables.scss';
         `,
       },
     },

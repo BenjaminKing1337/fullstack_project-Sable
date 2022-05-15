@@ -51,6 +51,9 @@ app.use(bodyParser.json());
 //   res.send("yay homepage");
 // });
 
+// Import list routes
+const ListsRoute = require("./routes/Lists");
+app.use("/lists", ListsRoute);
 // Import task routes
 const TasksRoute = require("./routes/Tasks");
 app.use("/tasks", TasksRoute);
