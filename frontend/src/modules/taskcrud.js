@@ -10,6 +10,10 @@ const GetTasks = () => {
 
   const State = ref({
     NewAuthor: "",
+    NewDescription: "",
+    NewStatus: "",
+    NewIs_Optional: "",
+    NewDeadline: "",
     NewTaskItem: "",
     Tasks: {},
   });
@@ -35,6 +39,10 @@ const GetTasks = () => {
       },
       body: JSON.stringify({
         author: State.value.NewAuthor,
+        description: State.value.NewDescription,
+        status: State.value.NewStatus,
+        is_optional: State.value.NewIs_Optional,
+        deadline: State.value.NewDeadline,
         task: State.value.NewTaskItem,
       }),
     };
@@ -60,6 +68,10 @@ const GetTasks = () => {
       },
       body: JSON.stringify({
         author: State.value.NewAuthor,
+        description: State.value.NewDescription,
+        status: State.value.NewStatus,
+        is_optional: State.value.NewIs_Optional,
+        deadline: State.value.NewDeadline,
         task: State.value.NewTaskItem,
       }),
     };
