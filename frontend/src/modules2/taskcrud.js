@@ -20,7 +20,7 @@ const GetTasks = () => {
 
   const GetAllTasks = async () => {
     try {
-      await fetch("https://sableplan.herokuapp.com/tasks")
+      await fetch("http://localhost:4000/tasks")
         .then((Res) => Res.json())
         .then((Data) => {
           tState.value.Tasks = Data;
@@ -46,13 +46,13 @@ const GetTasks = () => {
         task: tState.value.NewTaskItem,
       }),
     };
-    fetch("https://sableplan.herokuapp.com/tasks/new", RequestOptions).then(() => {
+    fetch("http://localhost:4000/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
     });
   };
 
   const DeleteTask = (_id) => {
-    fetch("https://sableplan.herokuapp.com/tasks/delete/" + _id, {
+    fetch("http://localhost:4000/tasks/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllTasks(); // Updates page
@@ -75,7 +75,7 @@ const GetTasks = () => {
         task: tState.value.NewTaskItem,
       }),
     };
-    fetch("https://sableplan.herokuapp.com/tasks/update/" + TaskId.value, RequestOptions)
+    fetch("http://localhost:4000/tasks/update/" + TaskId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -86,7 +86,7 @@ const GetTasks = () => {
   const Task = ref({});
   const GetSpecificTask = async () => {
     try {
-      fetch("https://sableplan.herokuapp.com/tasks/")
+      fetch("http://localhost:4000/tasks/")
         .then((Res) => Res.json())
         .then((Data) => {
           Task.value = Data.filter((T) => T._id === TaskId.value);
