@@ -78,6 +78,7 @@ Router.post("/login", async (req, res) => {
     {
       name: user.name,
       email: user.email,
+      userLevel: user.userLevel,
       id: user._id,
     },
     // TOKEN_SECRET
