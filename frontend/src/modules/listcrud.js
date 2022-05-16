@@ -39,7 +39,7 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch(baseUrl + "/lists/new", RequestOptions).then(() => {
+    fetch((baseUrl + "/lists/new"), RequestOptions).then(() => {
       GetAllLists(); // Updates page
     });
   };
