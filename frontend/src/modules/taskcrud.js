@@ -20,7 +20,7 @@ const GetTasks = () => {
 
   const GetAllTasks = async () => {
     try {
-      await fetch("baseUrl + /tasks")
+      await fetch(baseUrl + "/tasks")
         .then((Res) => Res.json())
         .then((Data) => {
           tState.value.Tasks = Data;
@@ -46,13 +46,13 @@ const GetTasks = () => {
         task: tState.value.NewTaskItem,
       }),
     };
-    fetch("baseUrl + /tasks/new", RequestOptions).then(() => {
+    fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
     });
   };
 
   const DeleteTask = (_id) => {
-    fetch("baseUrl + /tasks/delete/" + _id, {
+    fetch(baseUrl + "/tasks/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllTasks(); // Updates page
@@ -75,7 +75,7 @@ const GetTasks = () => {
         task: tState.value.NewTaskItem,
       }),
     };
-    fetch("baseUrl + /tasks/update/" + TaskId.value, RequestOptions)
+    fetch(baseUrl + "/tasks/update/" + TaskId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -86,7 +86,7 @@ const GetTasks = () => {
   const Task = ref({});
   const GetSpecificTask = async () => {
     try {
-      fetch("baseUrl + /tasks/")
+      fetch(baseUrl + "/tasks/")
         .then((Res) => Res.json())
         .then((Data) => {
           Task.value = Data.filter((T) => T._id === TaskId.value);
