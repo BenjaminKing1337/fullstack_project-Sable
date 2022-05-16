@@ -15,7 +15,7 @@ const GetUsers = () => {
   });
   const GetAllUsers = async () => {
     try {
-      await fetch("${process.env.BASE_URL}/users")
+      await fetch("baseUrl + /users")
         .then((Res) => Res.json())
         .then((Data) => {
           uState.value.Users = Data;
@@ -38,13 +38,13 @@ const GetUsers = () => {
   //       Task: uState.value.NewTaskItem,
   //     }),
   //   };
-  //   fetch("${process.env.BASE_URL}/tasks/new", RequestOptions).then(() => {
+  //   fetch("baseUrl + /tasks/new", RequestOptions).then(() => {
   //     GetAllTasks(); // Updates page
   //   });
   // };
 
   const DeleteUser = (_id) => {
-    fetch("${process.env.BASE_URL}/users/delete/" + _id, {
+    fetch("baseUrl + /users/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllUsers(); // Updates page
@@ -63,7 +63,7 @@ const GetUsers = () => {
         pass: uState.value.newPass,
       }),
     };
-    fetch("${process.env.BASE_URL}/users/update/" + UserId.value, RequestOptions)
+    fetch("baseUrl + /users/update/" + UserId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -74,7 +74,7 @@ const GetUsers = () => {
   const User = ref({});
   const GetSpecificUser = async () => {
     try {
-      fetch("${process.env.BASE_URL}/users/")
+      fetch("baseUrl + /users/")
         .then((Res) => Res.json())
         .then((Data) => {
           User.value = Data.filter((U) => U._id === UserId.value);

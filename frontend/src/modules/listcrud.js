@@ -4,7 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 const GetLists = () => {
   const Route = useRoute();
   const Router = useRouter();
-  // const baseUrl = "https://sableplan.herokuapp.com"
+  const baseUrl = "https://sableplan.herokuapp.com"
   const ListId = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
@@ -16,7 +16,7 @@ const GetLists = () => {
 
   const GetAllLists = async () => {
     try {
-      await fetch("${process.env.BASE_URL}/lists")
+      await fetch(baseUrl + "/lists")
         .then((Res) => Res.json())
         .then((Data) => {
           lState.value.Lists = Data;
@@ -38,13 +38,13 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch("${process.env.BASE_URL}/lists/new", RequestOptions).then(() => {
+    fetch("baseUrl + /lists/new", RequestOptions).then(() => {
       GetAllLists(); // Updates page
     });
   };
 
   const DeleteList = (_id) => {
-    fetch("${process.env.BASE_URL}/lists/delete/" + _id, {
+    fetch("baseUrl + /lists/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllLists(); // Updates page
@@ -63,7 +63,7 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch("${process.env.BASE_URL}/lists/update/" + ListId.value, RequestOptions)
+    fetch("baseUrl + /lists/update/" + ListId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -74,7 +74,7 @@ const GetLists = () => {
   const List = ref({});
   const GetSpecificList = async () => {
     try {
-      fetch("${process.env.BASE_URL}/lists/")
+      fetch("baseUrl + /lists/")
         .then((Res) => Res.json())
         .then((Data) => {
           List.value = Data.filter((L) => L._id === ListId.value);
