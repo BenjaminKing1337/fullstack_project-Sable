@@ -1,10 +1,11 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import baseUrl from './baseUrl';
 
 const GetLists = () => {
   const Route = useRoute();
   const Router = useRouter();
-  const baseUrl = "https://sableplan.herokuapp.com"
+  
   const ListId = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
