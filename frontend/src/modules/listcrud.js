@@ -39,13 +39,13 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch("baseUrl + /lists/new", RequestOptions).then(() => {
+    fetch(baseUrl + "/lists/new", RequestOptions).then(() => {
       GetAllLists(); // Updates page
     });
   };
 
   const DeleteList = (_id) => {
-    fetch("baseUrl + /lists/delete/" + _id, {
+    fetch(baseUrl + "/lists/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
       GetAllLists(); // Updates page
@@ -64,7 +64,7 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch("baseUrl + /lists/update/" + ListId.value, RequestOptions)
+    fetch(baseUrl + "/lists/update/" + ListId.value, RequestOptions)
       .then((Res) => Res.body)
       .then((Res) => {
         console.log(Res);
@@ -75,7 +75,7 @@ const GetLists = () => {
   const List = ref({});
   const GetSpecificList = async () => {
     try {
-      fetch("baseUrl + /lists/")
+      fetch(baseUrl + "/lists/")
         .then((Res) => Res.json())
         .then((Data) => {
           List.value = Data.filter((L) => L._id === ListId.value);
