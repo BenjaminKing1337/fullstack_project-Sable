@@ -3,8 +3,5 @@ const Mongoose = require("mongoose");
 const ListsSchema = new Mongoose.Schema({
   title: String,
   is_Complete: Boolean,
-  tasks: Array,
-  
 });
-
 module.exports = Mongoose.model("List", ListsSchema);

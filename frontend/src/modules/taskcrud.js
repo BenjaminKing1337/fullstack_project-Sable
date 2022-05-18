@@ -1,11 +1,12 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import baseUrl from './baseUrl';
+import Listcrud from './listcrud';
 
 const GetTasks = () => {
   const Route = useRoute();
   const Router = useRouter();
-
+  const { lState } = Listcrud;
   const TaskId = computed(() => Route.params.id);
   console.log("taskId: ", TaskId);
 
@@ -16,12 +17,25 @@ const GetTasks = () => {
     NewIs_Optional: "",
     NewDeadline: "",
     NewTaskItem: "",
+    ListId: "",
     Tasks: {},
   });
 
   const GetAllTasks = async () => {
     try {
       await fetch(baseUrl + "/tasks")
+        .then((Res) => Res.json())
+        .then((Data) => {
+          tState.value.Tasks = Data;
+        });
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
+  
+  const GetAllTasksByListId = async () => {
+    try {
+      await fetch(baseUrl + "/tasks/" + lState.List._id)
         .then((Res) => Res.json())
         .then((Data) => {
           tState.value.Tasks = Data;
@@ -39,6 +53,7 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
+        ListId: tState.value.ListId,
         author: tState.value.NewAuthor,
         description: tState.value.NewDescription,
         status: tState.value.NewStatus,
@@ -47,6 +62,7 @@ const GetTasks = () => {
         task: tState.value.NewTaskItem,
       }),
     };
+    console.log(RequestOptions.body)
     fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
     });
@@ -102,7 +118,9 @@ const GetTasks = () => {
     TaskId,
     GetSpecificTask,
     tState,
+    lState,
     GetAllTasks,
+    GetAllTasksByListId,
     NewTask,
     DeleteTask,
     EditTask,
