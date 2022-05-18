@@ -37,13 +37,11 @@
                   {{ List.title }}
                 </h4>
               </div>
+              <!-- <div>
+               {{ GetAllTasksByListId(List._id) }}
+               {{ GetAllTasks() }}
+              </div> -->
               <div
-                v-for="Task in tState.Tasks"
-                :key="Task._id"
-                class="text-subtitle2 border"
-              > {{ GetAllTasksByListId() }}
-              </div>
-              <!-- <div
                 v-for="Task in filterTasks(tState.Tasks, List._id)"
                 :key="Task._id"
                 class="text-subtitle2 border"
@@ -53,7 +51,7 @@
                 <p>Deadline: {{ Task.deadline }}</p>
                 <p>Status: {{ Task.status }}</p>
                 <p>Optional?: {{ Task.is_optional }}</p>
-              </div> -->
+              </div>
             </div>
 
             <div class="col-auto">

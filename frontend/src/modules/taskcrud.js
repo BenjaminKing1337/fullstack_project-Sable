@@ -32,14 +32,15 @@ const GetTasks = () => {
       console.log(Error);
     }
   };
-  
-  const GetAllTasksByListId = async () => {
+
+  const GetAllTasksByListId = async (listId) => {
     try {
-      await fetch(baseUrl + "/tasks/" + lState.List._id)
+      const test = await fetch(baseUrl + "/tasks/get/byList/" + listId)
         .then((Res) => Res.json())
         .then((Data) => {
           tState.value.Tasks = Data;
         });
+        return test;
     } catch (Error) {
       console.log(Error);
     }
