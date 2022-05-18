@@ -4,11 +4,23 @@
     <div class="create">
       <div class="new">
         <h4>Create New List</h4>
+        Select Project:
+        <select v-model="lState.ProjectId" placeholder="Project">
+          <option
+            v-for="Project in pState.Projects"
+            :key="Project._id"
+            :value="Project._id"
+          >
+            {{ Project.name }}
+          </option>
+        </select>
+        <br />
         <input type="text" placeholder="Title" v-model="lState.NewTitle" />
         <br />
         Complete
-        <input
+        <input id="checkbox"
           type="checkbox"
+          checked="true"
           placeholder="Complete"
           v-model="lState.NewIs_Complete"
         />
@@ -25,8 +37,7 @@
       </div>
     </div>
 
-
-<!-- List Loop -->
+    <!-- List Loop -->
     <div v-for="List in lState.Lists" :key="List._id" class="listitem">
       <q-card flat bordered class="my-card bg-grey-1">
         <q-card-section>
@@ -38,8 +49,8 @@
                 </h4>
               </div>
               <div>
-               <!-- {{ GetAllTasksByListId(List._id) }} -->
-               <!-- {{ GetAllTasks() }} -->
+                <!-- {{ GetAllTasksByListId(List._id) }} -->
+                <!-- {{ GetAllTasks() }} -->
               </div>
               <div
                 v-for="Task in filterTasks(tState.Tasks, List._id)"
@@ -92,26 +103,37 @@
 </template>
 
 <script>
+import Projectcrud from "../modules/projectcrud";
 import Listcrud from "../modules/listcrud";
 import Taskcrud from "../modules/taskcrud";
 import { onMounted } from "vue";
 
 export default {
   setup() {
+    const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
+      Projectcrud();
     const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
-    const { tState, GetAllTasks, GetAllTasksByListId, NewTask, DeleteTask, EditTask } = Taskcrud();
-
+    const {
+      tState,
+      GetAllTasks,
+      // GetAllTasksByListId,
+      NewTask,
+      DeleteTask,
+      EditTask,
+    } = Taskcrud();
+    
     let filterTasks = (Tasks, listId) => {
       let tasksFiltered = [];
-      for(var i=0; i<Tasks.length; i++){
-        if(Tasks[i].ListId == listId){
+      for (var i = 0; i < Tasks.length; i++) {
+        if (Tasks[i].ListId == listId) {
           tasksFiltered.push(Tasks[i]);
         }
       }
       return tasksFiltered;
-    }
+    };
 
     onMounted(() => {
+      GetAllProjects();
       GetAllLists();
       GetAllTasks();
       // GetAllTasksByListId();
@@ -119,6 +141,11 @@ export default {
 
     // GetAll();
     return {
+      pState,
+      GetAllProjects,
+      NewProject,
+      DeleteProject,
+      EditProject,
       lState,
       GetAllLists,
       NewList,
@@ -126,11 +153,11 @@ export default {
       EditList,
       tState,
       GetAllTasks,
-      GetAllTasksByListId,
+      // GetAllTasksByListId,
       NewTask,
       DeleteTask,
       EditTask,
-      filterTasks
+      filterTasks,
     };
   },
 };

@@ -45,6 +45,9 @@ $cs: (
 .flex {
   display: flex;
 }
+.row {
+  flex-direction: row;
+}
 .spaceb {
   justify-content: space-between;
 }

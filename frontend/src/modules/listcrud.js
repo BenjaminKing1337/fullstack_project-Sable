@@ -1,17 +1,19 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import baseUrl from './baseUrl';
+import Projectcrud from './projectcrud';
 
 const GetLists = () => {
   const Route = useRoute();
   const Router = useRouter();
-  
+  const { pState } = Projectcrud;
   const ListId = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
   const lState = ref({
     NewTitle: "",
-    NewIs_Complete: "",
+    NewIs_Complete: "false",
+    ProjectId: "",
     Lists: {},
   });
 
@@ -35,6 +37,7 @@ const GetLists = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
+        ProjectId: lState.value.ProjectId,
         title: lState.value.NewTitle,
         is_Complete: lState.value.NewIs_Complete,
       }),
@@ -90,6 +93,7 @@ const GetLists = () => {
     ListId,
     GetSpecificList,
     lState,
+    pState,
     GetAllLists,
     NewList,
     DeleteList,

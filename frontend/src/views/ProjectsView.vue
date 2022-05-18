@@ -7,7 +7,6 @@
 
     <h6>My Projects</h6>
     <div class="flex q-mb-xl">
- 
       <q-card
         class="my-card"
         v-for="Project in pState.Projects"
@@ -31,6 +30,13 @@
                 </q-tooltip>
               </div>
               <div class="text-subtitle2">{{ Project.description }}</div>
+              <div
+                v-for="List in filterLists(lState.Lists, Project._id)"
+                :key="List._id"
+                class="listitem"
+              >
+               - {{ List.title }}
+              </div>
             </div>
 
             <div class="col-auto">
@@ -46,8 +52,8 @@
                     <q-item clickable>
                       <q-item-section class="flex text-weight-bold"
                         ><button @click="EditProject(Project.value._id)">
-                            Edit Project
-                          </button></q-item-section
+                          Edit Project
+                        </button></q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon
@@ -94,7 +100,12 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none q-ml-md">
-          <q-input class="q-mb-sm" v-model="pState.NewName" label="Name" filled />
+          <q-input
+            class="q-mb-sm"
+            v-model="pState.NewName"
+            label="Name"
+            filled
+          />
           <q-input
             class="q-mb-sm"
             v-model="pState.NewDescription"
@@ -142,10 +153,10 @@ export default {
       Projectcrud();
     const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
 
-    let filterLists = (Lists, ProjectId) => {
+    let filterLists = (Lists, projectId) => {
       let listsFiltered = [];
       for (var i = 0; i < Lists.length; i++) {
-        if (Lists[i].projectId == ProjectId) {
+        if (Lists[i].ProjectId == projectId) {
           listsFiltered.push(Lists[i]);
         }
       }
