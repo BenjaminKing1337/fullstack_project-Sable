@@ -1,0 +1,109 @@
+import { ref, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import baseUrl from './baseUrl';
+
+const GetProjects = () => {
+  const Route = useRoute();
+  const Router = useRouter();
+  
+  const ProjectId = computed(() => Route.params.id);
+  console.log("projectId: ", ProjectId);
+
+  const pState = ref({
+    NewName: "",
+    NewDescription: "",
+    NewStatus: "",
+    NewDeadline: "",
+    NewColor: "",
+    Projects: {},
+  });
+
+  const GetAllProjects = async () => {
+    try {
+      await fetch(baseUrl + "/projects")
+        .then((Res) => Res.json())
+        .then((Data) => {
+          pState.value.Projects = Data;
+        });
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
+
+  const NewProject = () => {
+    const RequestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "auth-token": state.token
+      },
+      body: JSON.stringify({
+        name: pState.value.NewName,
+        description: pState.value.NewDescription,
+        status: pState.value.NewStatus,
+        deadline: pState.value.NewDeadline,
+        color: pState.value.NewColor,
+      }),
+    };
+    fetch((baseUrl + "/projects/new"), RequestOptions).then(() => {
+      GetAllProjects(); // Updates page
+    });
+  };
+
+  const DeleteProject = (_id) => {
+    fetch(baseUrl + "/projects/delete/" + _id, {
+      method: "DELETE",
+    }).then(() => {
+      GetAllProjects(); // Updates page
+    });
+  };
+
+  const EditProject = () => {
+    const RequestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        // "auth-token": state.token
+      },
+      body: JSON.stringify({
+        name: pState.value.NewName,
+        description: pState.value.NewDescription,
+        status: pState.value.NewStatus,
+        deadline: pState.value.NewDeadline,
+        color: pState.value.NewColor,
+      }),
+    };
+    fetch(baseUrl + "/projects/update/" + ProjectId.value, RequestOptions)
+      .then((Res) => Res.body)
+      .then((Res) => {
+        console.log(Res);
+      });
+    Router.push("/projects");
+  };
+
+  const Project = ref({});
+  const GetSpecificProject = async () => {
+    try {
+      fetch(baseUrl + "/projects/")
+        .then((Res) => Res.json())
+        .then((Data) => {
+          Project.value = Data.filter((L) => L._id === ProjectId.value);
+        });
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
+
+  return {
+    Project,
+    ProjectId,
+    GetSpecificProject,
+    pState,
+    GetAllProjects,
+    NewProject,
+    DeleteProject,
+    EditProject,
+  };
+};
+
+export default GetProjects;

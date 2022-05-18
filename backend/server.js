@@ -51,6 +51,9 @@ app.use(bodyParser.json());
 //   res.send("yay homepage");
 // });
 
+// Import project routes
+const ProjectsRoute = require("./routes/Projects");
+app.use("/projects", ProjectsRoute);
 // Import list routes
 const ListsRoute = require("./routes/Lists");
 app.use("/lists", ListsRoute);

@@ -7,30 +7,26 @@
 
     <h6>My Projects</h6>
     <div class="flex q-mb-xl">
- 
-      <q-card
-        class="my-card"
-        v-for="Project in pState.Projects"
-        :key="Project._id"
-      >
+      
+      <q-card class="my-card" v-for="project in projects" v-bind:key="project">
         <q-card-section
           class="text-white card_sec"
-          v-bind:style="{ backgroundColor: Project.color }"
+          v-bind:style="{ backgroundColor: project.color }"
         >
           <div class="row no-wrap">
             <div class="col">
               <div class="text-h6 line-adjust ellipsis-2-lines textShadow">
-                {{ Project.name }}
+                {{ project.title }}
                 <q-tooltip
                   class="bg-orange text-body2"
                   anchor="top middle"
                   self="bottom middle"
                   :offset="[10, 10]"
                 >
-                  {{ Project.name }}
+                  {{ project.title }}
                 </q-tooltip>
               </div>
-              <div class="text-subtitle2">{{ Project.description }}</div>
+              <div class="text-subtitle2">{{ project.description }}</div>
             </div>
 
             <div class="col-auto">
@@ -45,9 +41,7 @@
                   <q-list>
                     <q-item clickable>
                       <q-item-section class="flex text-weight-bold"
-                        ><button @click="EditProject(Project.value._id)">
-                            Edit Project
-                          </button></q-item-section
+                        >Edit</q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon
@@ -59,9 +53,7 @@
                     </q-item>
                     <q-item clickable class="bg-negative">
                       <q-item-section class="text-white text-weight-bold"
-                        ><button @click="DeleteProject(Project._id)">
-                          Delete Project
-                        </button></q-item-section
+                        >Delete</q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon color="white" size="1.5em" name="delete" />
@@ -75,9 +67,10 @@
         </q-card-section>
         <q-btn class="full-width" label="Open"></q-btn>
       </q-card>
+
     </div>
 
-    <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
+     <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
       <q-icon name="add" />
       Create a new project
     </q-btn>
@@ -94,37 +87,37 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none q-ml-md">
-          <q-input class="q-mb-sm" v-model="pState.NewName" label="Name" filled />
+          <q-input class="q-mb-sm" v-model="address" label="Name" filled />
           <q-input
             class="q-mb-sm"
-            v-model="pState.NewDescription"
+            v-model="address"
             label="Description"
             filled
           />
           <q-input
             class="q-mb-sm"
-            v-model="pState.NewDeadline"
+            v-model="address"
             type="date"
             filled
             hint="Pick a deadline"
           />
           <div class="disable_scroll">
             <q-color
-              v-model="pState.NewColor"
+              v-model="hex"
               no-header
               no-footer
               default-view="palette"
               class="my-picker scroll overflow-hidden"
             />
             <q-badge color="grey-3" text-color="black" class="q-mb-sm">
-              {{ pState.NewColor }}
+              {{ hex }}
             </q-badge>
           </div>
         </q-card-section>
 
         <q-card-actions align="right" class="myOrange_color text-weight-bold">
           <q-btn flat label="Cancel" v-close-popup />
-          <q-btn @click="NewProject()" flat label="Create" v-close-popup />
+          <q-btn flat label="Create" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -132,46 +125,7 @@
 </template>
 
 <script>
-import Projectcrud from "../modules/projectcrud";
-import Listcrud from "../modules/listcrud";
-import { onMounted } from "vue";
-
 export default {
-  setup() {
-    const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
-      Projectcrud();
-    const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
-
-    let filterLists = (Lists, ProjectId) => {
-      let listsFiltered = [];
-      for (var i = 0; i < Lists.length; i++) {
-        if (Lists[i].projectId == ProjectId) {
-          listsFiltered.push(Lists[i]);
-        }
-      }
-      return listsFiltered;
-    };
-
-    onMounted(() => {
-      GetAllProjects();
-      GetAllLists();
-    });
-
-    // GetAll();
-    return {
-      lState,
-      GetAllLists,
-      NewList,
-      DeleteList,
-      EditList,
-      pState,
-      GetAllProjects,
-      NewProject,
-      DeleteProject,
-      EditProject,
-      filterLists,
-    };
-  },
   data() {
     return {
       projects: [
