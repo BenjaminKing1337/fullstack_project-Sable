@@ -37,10 +37,10 @@
                   {{ List.title }}
                 </h4>
               </div>
-              <!-- <div>
-               {{ GetAllTasksByListId(List._id) }}
-               {{ GetAllTasks() }}
-              </div> -->
+              <div>
+               <!-- {{ GetAllTasksByListId(List._id) }} -->
+               <!-- {{ GetAllTasks() }} -->
+              </div>
               <div
                 v-for="Task in filterTasks(tState.Tasks, List._id)"
                 :key="Task._id"
@@ -114,7 +114,7 @@ export default {
     onMounted(() => {
       GetAllLists();
       GetAllTasks();
-      GetAllTasksByListId();
+      // GetAllTasksByListId();
     });
 
     // GetAll();
