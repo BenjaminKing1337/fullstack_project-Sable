@@ -12,10 +12,6 @@ Router.get("/", async (Req, Res) => {
 Router.post("/new", async (Req, Res) => {
   const NewTask = new Task(
     Req.body // What the Vue App is sending
-    // { // pass in body content to be stored in DB
-    //   author: "Flanders",
-    //   task: "Go to Canada",
-    // }
   );
   const SavedTask = await NewTask.save(); // mongo save method
   Res.json(SavedTask); // respond with json to our post endpoint
@@ -26,11 +22,26 @@ Router.get("/get/:id", async (Req, Res) => {
   const IdTask = await Task.findById({ _id: Req.params.id });
   Res.json(IdTask);
 });
+// Get Task by List id route
+Router.get("/get/byList/:id", async (Req, Res) => {
+  try {
+    const IdList = await Task.find({ ListId: Req.params.id });
+    Res.json(IdList);
+  }
+  catch (fish) {
+    Res.status(400).json({ fish });
+  }
+});
 
 // Delete Task by id route
 Router.delete("/delete/:id", async (Req, Res) => {
-  const DelTask = await Task.findByIdAndDelete({ _id: Req.params.id });
+  try {
+    const DelTask = await Task.findByIdAndDelete({ _id: Req.params.id });
   Res.json(DelTask);
+  }
+  catch (fish) {
+    Res.status(400).json({ fish });
+  }
 });
 
 // Update Task by id route

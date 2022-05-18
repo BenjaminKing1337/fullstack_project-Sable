@@ -25,6 +25,8 @@
       </div>
     </div>
 
+
+<!-- List Loop -->
     <div v-for="List in lState.Lists" :key="List._id" class="listitem">
       <q-card flat bordered class="my-card bg-grey-1">
         <q-card-section>
@@ -39,13 +41,19 @@
                 v-for="Task in tState.Tasks"
                 :key="Task._id"
                 class="text-subtitle2 border"
+              > {{ GetAllTasksByListId() }}
+              </div>
+              <!-- <div
+                v-for="Task in filterTasks(tState.Tasks, List._id)"
+                :key="Task._id"
+                class="text-subtitle2 border"
               >
                 <p>Name:{{ Task.task }}</p>
                 <p>Decription: {{ Task.description }}</p>
                 <p>Deadline: {{ Task.deadline }}</p>
                 <p>Status: {{ Task.status }}</p>
                 <p>Optional?: {{ Task.is_optional }}</p>
-              </div>
+              </div> -->
             </div>
 
             <div class="col-auto">
@@ -93,11 +101,22 @@ import { onMounted } from "vue";
 export default {
   setup() {
     const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
-    const { tState, GetAllTasks, NewTask, DeleteTask, EditTask } = Taskcrud();
+    const { tState, GetAllTasks, GetAllTasksByListId, NewTask, DeleteTask, EditTask } = Taskcrud();
+
+    let filterTasks = (Tasks, listId) => {
+      let tasksFiltered = [];
+      for(var i=0; i<Tasks.length; i++){
+        if(Tasks[i].ListId == listId){
+          tasksFiltered.push(Tasks[i]);
+        }
+      }
+      return tasksFiltered;
+    }
 
     onMounted(() => {
       GetAllLists();
       GetAllTasks();
+      GetAllTasksByListId();
     });
 
     // GetAll();
@@ -109,9 +128,11 @@ export default {
       EditList,
       tState,
       GetAllTasks,
+      GetAllTasksByListId,
       NewTask,
       DeleteTask,
       EditTask,
+      filterTasks
     };
   },
 };

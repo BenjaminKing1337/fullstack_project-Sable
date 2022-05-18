@@ -1,6 +1,7 @@
 // What the user can send to the db
 const Mongoose = require("mongoose");
 const TasksSchema = new Mongoose.Schema({
+  ListId: String,
   task: String,
   description: String,
   status: Number,
