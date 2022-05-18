@@ -21,7 +21,7 @@
                             <q-btn color="white" round flat icon="more_vert">
                                 <q-menu class="overflow-hidden" anchor="center right" self="center left" auto-close fit >
                                     <q-list>
-                                        <q-item clickable>
+                                        <q-item clickable @click="edit_list = true">
                                             <q-item-section class="flex text-weight-bold">Edit</q-item-section>
                                             <q-item-section class="flex">
                                                 <q-icon class="myOrange_color" size="1.5em" name="edit" />
@@ -60,14 +60,14 @@
                     </q-list>
 
                 </q-card-section>
-                <q-btn class="full-width q-pr-lg q-pl-xs button_style" @click="prompt = true">
+                <q-btn class="full-width q-pr-lg q-pl-xs button_style" @click="add_card = true">
                     <q-icon name="add" />
                     Add a card
                 </q-btn>
             </q-card>
         </div>
-
-        <q-dialog v-model="prompt" persistent transition-show="rotate" transition-hide="rotate">
+        <!-- Add card -->
+        <q-dialog v-model="add_card" persistent transition-show="rotate" transition-hide="rotate">
             <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
                 <q-card-section class="q-pa-sm">
                     <div class="text-h6">Add a card</div>
@@ -87,6 +87,35 @@
                 <q-card-actions align="right" class="myOrange_color text-weight-bold">
                     <q-btn flat label="Cancel" v-close-popup />
                     <q-btn flat label="Add" v-close-popup />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- Edit List -->
+        <q-dialog v-model="edit_list" persistent transition-show="rotate" transition-hide="rotate">
+            <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
+                <q-card-section class="q-pa-sm">
+                    <div class="text-h6">Edit List</div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none q-ml-md">
+                    <q-input class="q-mb-sm" v-model="title" label="Title" filled />
+                    <div class="disable_scroll">
+                        <q-color
+                        v-model="hex"
+                        no-header
+                        no-footer
+                        default-view="palette"
+                        class="my-picker scroll overflow-hidden"
+                        />
+                        <q-badge color="grey-3" text-color="black" class="q-mb-sm">
+                        {{ }}
+                        </q-badge>
+                    </div>
+                </q-card-section>
+
+                <q-card-actions align="right" class="myOrange_color text-weight-bold">
+                    <q-btn flat label="Cancel" v-close-popup />
+                    <q-btn flat label="Edit" v-close-popup />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -116,7 +145,8 @@
                     {title: 'Another task', description: 'description of a task', status:'pending'},
                     {title: 'One more task', description: 'description of a task', status:'not-done'},
                 ],
-                prompt: false,
+                add_card: false,
+                edit_list: false,
                 status: '',
             }
             
@@ -173,5 +203,8 @@
 }
 .q-item{
     margin: 0;
+}
+.my-picker{
+    max-width: 280px;
 }
 </style>
