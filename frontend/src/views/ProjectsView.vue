@@ -12,7 +12,7 @@
                 >
                     <div class="row no-wrap">
                     <div class="col">
-                        <div class="text-h6 line-adjust ellipsis-2-lines">
+                        <div class="text-h6 line-adjust ellipsis-2-lines textShadow">
                             {{project.title}} 
                             <q-tooltip class="bg-orange text-body2" anchor="top middle" self="bottom middle" :offset="[10, 10]">
                              {{project.title}} 
@@ -58,7 +58,7 @@
                     <div class="text-h6">Create a project</div>
                 </q-card-section>
 
-                <q-card-section class="q-pt-none">
+                <q-card-section class="q-pt-none q-ml-md">
                     <q-input class="q-mb-sm" v-model="address" label="Name" filled />
                     <q-input class="q-mb-sm" v-model="address" label="Description" filled />
                     <q-input class="q-mb-sm" v-model="address" type="date" filled hint="Pick a deadline" />
@@ -114,10 +114,15 @@
     margin: 0 20px 20px 0;
     .card_sec{
         height: 110px;
+        border:  1px solid rgb(226, 220, 220);
+        border-bottom: none;
         .line-adjust{
             line-height: 1.6rem;
         }
     }
+}
+.textShadow{
+    text-shadow: 1px 1px 4px rgb(43, 40, 40);
 }
 .btn-fixed-width{
     width: 400px;
