@@ -110,6 +110,7 @@
             class="q-mb-sm"
             v-model="pState.NewDescription"
             label="Description"
+            type="textarea"
             filled
           />
           <q-input
