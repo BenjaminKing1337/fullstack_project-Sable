@@ -38,6 +38,7 @@ const GetTasks = () => {
       const test = await fetch(baseUrl + "/tasks/get/byList/" + listId)
         .then((Res) => Res.json())
         .then((Data) => {
+          debugger
           tState.value.Tasks = Data;
         });
         return test;
@@ -46,7 +47,7 @@ const GetTasks = () => {
     }
   };
 
-  const NewTask = () => {
+  const NewTask = (listId) => {
     const RequestOptions = {
       method: "POST",
       headers: {
@@ -54,13 +55,14 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        ListId: tState.value.ListId,
-        author: tState.value.NewAuthor,
-        description: tState.value.NewDescription,
-        status: tState.value.NewStatus,
-        is_optional: tState.value.NewIs_Optional,
-        deadline: tState.value.NewDeadline,
+        // ListId: tState.value.ListId,
+        ListId: listId,
+        author: tState.value.NewAuthor ? tState.value.NewAuthor : '',
         task: tState.value.NewTaskItem,
+        description: tState.value.NewDescription ? tState.value.NewDescription : '',
+        status: tState.value.NewStatus ? tState.value.NewStatus : 1,
+        is_optional: tState.value.NewIs_Optional ? tState.value.NewIs_Optional : false,
+        deadline: tState.value.NewDeadline,
       }),
     };
     console.log(RequestOptions.body)
@@ -85,12 +87,12 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        author: tState.value.NewAuthor,
-        description: tState.value.NewDescription,
-        status: tState.value.NewStatus,
-        is_optional: tState.value.NewIs_Optional,
-        deadline: tState.value.NewDeadline,
+        author: tState.value.NewAuthor ? tState.value.NewAuthor : '',
         task: tState.value.NewTaskItem,
+        description: tState.value.NewDescription ? tState.value.NewDescription : '',
+        status: tState.value.NewStatus ? tState.value.NewStatus : 1,
+        is_optional: tState.value.NewIs_Optional ? tState.value.NewIs_Optional : false,
+        deadline: tState.value.NewDeadline,
       }),
     };
     fetch(baseUrl + "/tasks/update/" + TaskId.value, RequestOptions)

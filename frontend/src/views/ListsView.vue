@@ -18,7 +18,8 @@
         <input type="text" placeholder="Title" v-model="lState.NewTitle" />
         <br />
         Complete
-        <input id="checkbox"
+        <input
+          id="checkbox"
           type="checkbox"
           checked="true"
           placeholder="Complete"
@@ -47,6 +48,68 @@
                 <h4>
                   {{ List.title }}
                 </h4>
+                <div class="createInList">
+                  <div class="create">
+                    <div class="new">
+                      <h6>Create New Task</h6>
+                       <!--Select List:
+                      <select v-model="tState.ListId" placeholder="List">
+                        <option
+                          :key="List._id"
+                          :value="List._id"
+                        >
+                          {{ List.title }}
+                        </option>
+                      </select> -->
+                      <!-- <span>List: {{ List.title }}</span> -->
+                      <!-- <br />
+                      <input
+                        type="text"
+                        placeholder="Author"
+                        v-model="tState.NewAuthor"
+                      size="10"
+                      /> -->
+                      <br />
+                      <input
+                        type="text"
+                        placeholder="Task"
+                        v-model="tState.NewTaskItem"
+                        size="10"
+                      />
+                      <!-- <br />
+                       <input
+                        type="text"
+                        placeholder="Description"
+                        v-model="tState.NewDescription"
+                      />
+                      <br />
+                      <input
+                        type="date"
+                        placeholder="Deadline"
+                        v-model="tState.NewDeadline"
+                        size="10"
+                      />
+                      
+                      <br />
+                      <input
+                        type="number"
+                        placeholder="Status"
+                        v-model="tState.NewStatus"
+                      size="10"
+                      />
+                      <br />
+                      Optional:
+                      <input
+                        type="checkbox"
+                        placeholder="Optional"
+                        v-model="tState.NewIs_Optional"
+                      size="10"
+                      />
+                      <br /> -->
+                      <button @click="NewTask(List._id)">Create New Task</button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div>
                 <!-- {{ GetAllTasksByListId(List._id) }} -->
@@ -58,10 +121,10 @@
                 class="text-subtitle2 border"
               >
                 <p>Name:{{ Task.task }}</p>
-                <p>Decription: {{ Task.description }}</p>
+                <!-- <p>Decription: {{ Task.description }}</p>
                 <p>Deadline: {{ Task.deadline }}</p>
                 <p>Status: {{ Task.status }}</p>
-                <p>Optional?: {{ Task.is_optional }}</p>
+                <p>Optional?: {{ Task.is_optional }}</p> -->
               </div>
             </div>
 
@@ -121,7 +184,7 @@ export default {
       DeleteTask,
       EditTask,
     } = Taskcrud();
-    
+
     let filterTasks = (Tasks, listId) => {
       let tasksFiltered = [];
       for (var i = 0; i < Tasks.length; i++) {
@@ -131,6 +194,7 @@ export default {
       }
       return tasksFiltered;
     };
+    
 
     onMounted(() => {
       GetAllProjects();
@@ -169,5 +233,8 @@ export default {
   margin: 1%;
   padding: 1%;
   border: 1px solid map-get($cs, 1);
+}
+.listitem {
+  width: 100%;
 }
 </style>

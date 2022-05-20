@@ -35,7 +35,7 @@
                 :key="List._id"
                 class="listitem"
               >
-               - {{ List.title }}
+                - {{ List.title }}
               </div>
             </div>
 
@@ -79,7 +79,10 @@
             </div>
           </div>
         </q-card-section>
-        <q-btn class="full-width" label="Open"></q-btn>
+        <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
+        <q-item  to="/lists">
+        <p active clickable v-ripple>Open</p>
+        </q-item>
       </q-card>
     </div>
 
