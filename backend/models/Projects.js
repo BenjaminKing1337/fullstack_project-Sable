@@ -9,9 +9,7 @@ const ProjectsSchema = new Mongoose.Schema({
   created_at: String,
   deadline: String,
   progression: String,
-  lists: Array,
-  tasks: Array,
-  teamMembers: Array
+  UserId: String,
 });
 
 module.exports = Mongoose.model("Project", ProjectsSchema);

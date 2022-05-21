@@ -9,7 +9,7 @@
     <div class="flex q-mb-xl">
       <q-card
         class="my-card"
-        v-for="Project in pState.Projects"
+        v-for="Project in filterProjects(pState.Projects, userId)"
         :key="Project._id"
       >
         <q-card-section
@@ -81,7 +81,7 @@
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
         <q-item  to="/lists">
-        <p active clickable v-ripple>Open</p>
+        <p align="center" active clickable v-ripple>Open</p>
         </q-item>
       </q-card>
     </div>
@@ -156,7 +156,9 @@ export default {
     const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
       Projectcrud();
     const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
-
+    
+    const userId = localStorage.getItem('userid');
+    
     let filterLists = (Lists, projectId) => {
       let listsFiltered = [];
       for (var i = 0; i < Lists.length; i++) {
@@ -165,6 +167,15 @@ export default {
         }
       }
       return listsFiltered;
+    };
+    let filterProjects = (Projects, userId) => {
+      let projectsFiltered = [];
+      for (var i = 0; i < Projects.length; i++) {
+        if (Projects[i].UserId == userId) {
+          projectsFiltered.push(Projects[i]);
+        }
+      }
+      return projectsFiltered;
     };
 
     onMounted(() => {
@@ -185,6 +196,8 @@ export default {
       DeleteProject,
       EditProject,
       filterLists,
+      filterProjects,
+      userId
     };
   },
   data() {

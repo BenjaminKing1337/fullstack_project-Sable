@@ -92,7 +92,8 @@ Router.post("/login", async (req, res) => {
     error: null,
     data: { Token },
     name: user.name,
-    level: user.userLevel
+    level: user.userLevel,
+    id: user._id
   });
 
   // test login route

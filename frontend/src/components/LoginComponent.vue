@@ -64,6 +64,7 @@ export default {
       localStorage.setItem("Token", response.data.data.Token);
       localStorage.setItem("name", response.data.name);
       localStorage.setItem("level", response.data.level);
+      localStorage.setItem("userid", response.data.id);
       this.$router.push("/");
     },
     onReset() {

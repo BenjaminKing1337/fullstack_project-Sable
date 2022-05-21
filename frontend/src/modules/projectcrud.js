@@ -38,6 +38,7 @@ const GetProjects = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
+        UserId: localStorage.getItem('userid'),
         name: pState.value.NewName,
         description: pState.value.NewDescription,
         status: pState.value.NewStatus,
