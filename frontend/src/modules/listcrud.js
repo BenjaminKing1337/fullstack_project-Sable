@@ -10,6 +10,9 @@ const GetLists = () => {
   const ListId = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
+  var url = window.location.pathname.split('/');
+  var url_id = url[2]
+
   const lState = ref({
     NewTitle: "",
     NewIs_Complete: "false",
@@ -31,8 +34,7 @@ const GetLists = () => {
   };
   const GetAllListsFromProject = async () => {
     try {
-      await fetch(baseUrl + "/lists/get/" + ProjectId.value
-      )
+      await fetch(baseUrl + "/lists/get/" + url_id)
         .then((Res) => Res.json())
         .then((Data) => {
           lState.value.Lists = Data;
