@@ -9,7 +9,7 @@
     <div class="flex q-mb-xl">
       <q-card
         class="my-card"
-        v-for="Project in filterProjects(pState.Projects, userId)"
+        v-for="Project in pState.Projects"
         :key="Project._id"
       >
         <q-card-section
@@ -30,13 +30,6 @@
                 </q-tooltip>
               </div>
               <div class="text-subtitle2">{{ Project.description }}</div>
-              <div
-                v-for="List in filterLists(lState.Lists, Project._id)"
-                :key="List._id"
-                class="listitem"
-              >
-                - {{ List.title }}
-              </div>
             </div>
 
             <div class="col-auto">
@@ -153,7 +146,7 @@ import { onMounted } from "vue";
 
 export default {
   setup() {
-    const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
+    const { pState, GetUserProjects, NewProject, DeleteProject, EditProject } =
       Projectcrud();
     const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
     
@@ -168,7 +161,7 @@ export default {
       }
       return listsFiltered;
     };
-    let filterProjects = (Projects, userId) => {
+/*     let filterProjects = (Projects, userId) => {
       let projectsFiltered = [];
       for (var i = 0; i < Projects.length; i++) {
         if (Projects[i].UserId == userId) {
@@ -176,10 +169,10 @@ export default {
         }
       }
       return projectsFiltered;
-    };
+    }; */
 
     onMounted(() => {
-      GetAllProjects();
+      GetUserProjects();
       GetAllLists();
     });
 
@@ -191,12 +184,11 @@ export default {
       DeleteList,
       EditList,
       pState,
-      GetAllProjects,
+      GetUserProjects,
       NewProject,
       DeleteProject,
       EditProject,
       filterLists,
-      filterProjects,
       userId
     };
   },

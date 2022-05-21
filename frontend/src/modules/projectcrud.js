@@ -29,6 +29,17 @@ const GetProjects = () => {
       console.log(Error);
     }
   };
+  const GetUserProjects = async () => {
+    try {
+      await fetch(baseUrl + "/projects/get/" + localStorage.getItem('userid'))
+        .then((Res) => Res.json())
+        .then((Data) => {
+          pState.value.Projects = Data;
+        });
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
 
   const NewProject = () => {
     const RequestOptions = {
@@ -47,7 +58,7 @@ const GetProjects = () => {
       }),
     };
     fetch((baseUrl + "/projects/new"), RequestOptions).then(() => {
-      GetAllProjects(); // Updates page
+      GetUserProjects(); // Updates page
     });
   };
 
@@ -104,6 +115,7 @@ const GetProjects = () => {
     NewProject,
     DeleteProject,
     EditProject,
+    GetUserProjects,
   };
 };
 

@@ -22,9 +22,19 @@ Router.post("/new", async (Req, Res) => {
 });
 
 // Get Project by id route
-Router.get("/get/:id", async (Req, Res) => {
+/* Router.get("/get/:id", async (Req, Res) => {
   try {
     const IdProject = await Project.findById({ _id: Req.params.id });
+    Res.json(IdProject);
+  } catch (fish) {
+    Res.status(400).json({ fish });
+  }
+}); */
+
+// Get Projects by UserID
+Router.get("/get/:id", async (Req, Res) => {
+  try {
+    const IdProject = await Project.find({ UserId: Req.params.id });
     Res.json(IdProject);
   } catch (fish) {
     Res.status(400).json({ fish });
