@@ -4,7 +4,7 @@ const TasksSchema = new Mongoose.Schema({
   ListId: String,
   task: String,
   description: String,
-  status: Number,
+  status: String,
   is_optional: Boolean,
   created_at: String,
   deadline: String,

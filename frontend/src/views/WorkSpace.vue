@@ -23,8 +23,7 @@
     </div>
 
     <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
-      <div v-for="List in lState.Lists" :key="List._id" class="listitem">
-        <q-card class="my-card">
+        <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
           <q-card-section
             class="text-white title_sec"
             v-bind:style="{ backgroundColor: List.color }"
@@ -142,7 +141,6 @@
             </div>
           </div>
         </q-card>
-      </div>
     </div>
     <!-- Add card -->
     <q-dialog
