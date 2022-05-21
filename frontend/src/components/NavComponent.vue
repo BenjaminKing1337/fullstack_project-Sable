@@ -69,6 +69,13 @@
             <q-item-section> Sable </q-item-section>
           </q-item>
 
+          <q-item v-if="adminAuth()" active clickable v-ripple to="/admin">
+            <q-item-section avatar>
+              <q-icon name="lock" />
+            </q-item-section>
+
+            <q-item-section> Admin </q-item-section>
+          </q-item>
           <q-item v-if="userAuth()" active clickable v-ripple to="/projects">
             <q-item-section avatar>
               <q-icon name="cases" />
@@ -76,14 +83,14 @@
 
             <q-item-section> Projects </q-item-section>
           </q-item>
-          <q-item v-if="userAuth()" active clickable v-ripple to="/lists">
+          <q-item v-if="adminAuth()" active clickable v-ripple to="/lists">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
 
             <q-item-section> Lists </q-item-section>
           </q-item>
-          <q-item v-if="userAuth()" active clickable v-ripple to="/tasks">
+          <q-item v-if="adminAuth()" active clickable v-ripple to="/tasks">
             <q-item-section avatar>
               <q-icon name="task" />
             </q-item-section>
@@ -174,6 +181,11 @@ export default {
         return (
           localStorage.getItem("Token") !== null &&
           localStorage.getItem("Token") !== undefined
+        );
+      },
+      adminAuth() {
+        return (
+          localStorage.getItem("level") === "admin"
         );
       },
     };

@@ -12,6 +12,7 @@ const GetUsers = () => {
   const uState = ref({
     newName: "",
     newPass: "",
+    newUserLevel: "",
     Users: {},
   });
   const GetAllUsers = async () => {
@@ -62,6 +63,7 @@ const GetUsers = () => {
       body: JSON.stringify({
         name: uState.value.newName,
         pass: uState.value.newPass,
+        userLevel: uState.value.newUserLevel,
       }),
     };
     fetch(baseUrl + "/users/update/" + UserId.value, RequestOptions)

@@ -66,7 +66,7 @@ const GetProjects = () => {
     fetch(baseUrl + "/projects/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
-      GetAllProjects(); // Updates page
+      GetUserProjects(); // Updates page
     });
   };
 

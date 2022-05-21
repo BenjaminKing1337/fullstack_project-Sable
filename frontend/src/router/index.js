@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthGuard from './auth-guard'
+import AdminGuard from './admin-guard'
 
 const routes = [
   {
@@ -50,6 +51,18 @@ const routes = [
     path: "/lists",
     name: "lists",
     component: () => import("../views/ListsView.vue"),
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/AdminView.vue"),
+    beforeEnter: AdminGuard
+  },
+  {
+    path: "/user/:id",
+    name: "user",
+    component: () => import("../views/UserView.vue"),
+    beforeEnter: AdminGuard
   },
 ];
 

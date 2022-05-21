@@ -52,14 +52,15 @@ const GetLists = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
-        ProjectId: lState.value.ProjectId,
+        ProjectId: url_id,
+        // ProjectId: lState.value.ProjectId,
         title: lState.value.NewTitle,
         // color: pState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
     fetch((baseUrl + "/lists/new"), RequestOptions).then(() => {
-      GetAllLists(); // Updates page
+      GetAllListsFromProject(); // Updates page
     });
   };
 
@@ -67,7 +68,7 @@ const GetLists = () => {
     fetch(baseUrl + "/lists/delete/" + _id, {
       method: "DELETE",
     }).then(() => {
-      GetAllLists(); // Updates page
+      GetAllListsFromProject(); // Updates page
     });
   };
 
@@ -116,7 +117,9 @@ const GetLists = () => {
     NewList,
     DeleteList,
     EditList,
-    GetAllListsFromProject
+    GetAllListsFromProject,
+    url,
+    url_id,
   };
 };
 
