@@ -3,6 +3,7 @@ const Mongoose = require("mongoose");
 const ListsSchema = new Mongoose.Schema({
   ProjectId: String,
   title: String,
+  color: String,
   is_Complete: Boolean,
 });
 module.exports = Mongoose.model("List", ListsSchema);

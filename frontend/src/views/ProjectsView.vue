@@ -80,9 +80,10 @@
           </div>
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
-        <q-item  to="/lists">
-        <p align="center" active clickable v-ripple>Open</p>
-        </q-item>
+        <router-link  :to="`/workspace/${Project._id}`">
+          <button>Open</button>
+          <!-- <p align="center" active clickable v-ripple>Open</p> -->
+        </router-link>
       </q-card>
     </div>
 
@@ -155,7 +156,7 @@ export default {
   setup() {
     const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
       Projectcrud();
-    const { lState, GetAllLists, NewList, DeleteList, EditList } = Listcrud();
+    const { lState, GetAllLists, NewList, DeleteList, EditList, GetAllListsFromProject } = Listcrud();
     
     const userId = localStorage.getItem('userid');
     
@@ -180,7 +181,7 @@ export default {
 
     onMounted(() => {
       GetAllProjects();
-      GetAllLists();
+      GetAllListsFromProject();
     });
 
     // GetAll();
@@ -190,6 +191,7 @@ export default {
       NewList,
       DeleteList,
       EditList,
+      GetAllListsFromProject,
       pState,
       GetAllProjects,
       NewProject,

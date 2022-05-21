@@ -14,7 +14,7 @@ const GetProjects = () => {
     NewDescription: "",
     NewStatus: "",
     NewDeadline: "",
-    NewColor: "",
+    NewColor: "#fd9f28",
     Projects: {},
   });
 

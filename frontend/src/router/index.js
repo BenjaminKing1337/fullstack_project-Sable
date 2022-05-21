@@ -42,7 +42,7 @@ const routes = [
     component: () => import("../views/ProjectsView.vue"),
   },
   {
-    path: "/workspace",
+    path: "/workspace/:id",
     name: "workspace",
     component: () => import("../views/WorkSpace.vue"),
   },
