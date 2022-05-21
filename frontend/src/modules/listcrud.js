@@ -6,13 +6,14 @@ import Projectcrud from './projectcrud';
 const GetLists = () => {
   const Route = useRoute();
   const Router = useRouter();
-  const { pState } = Projectcrud;
+  const { pState, ProjectId } = Projectcrud;
   const ListId = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
   const lState = ref({
     NewTitle: "",
     NewIs_Complete: "false",
+    // NewColor: "",
     ProjectId: "",
     Lists: {},
   });
@@ -20,6 +21,18 @@ const GetLists = () => {
   const GetAllLists = async () => {
     try {
       await fetch(baseUrl + "/lists")
+        .then((Res) => Res.json())
+        .then((Data) => {
+          lState.value.Lists = Data;
+        });
+    } catch (Error) {
+      console.log(Error);
+    }
+  };
+  const GetAllListsFromProject = async () => {
+    try {
+      await fetch(baseUrl + "/lists/get/" + ProjectId.value
+      )
         .then((Res) => Res.json())
         .then((Data) => {
           lState.value.Lists = Data;
@@ -39,6 +52,7 @@ const GetLists = () => {
       body: JSON.stringify({
         ProjectId: lState.value.ProjectId,
         title: lState.value.NewTitle,
+        // color: pState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
@@ -64,6 +78,7 @@ const GetLists = () => {
       },
       body: JSON.stringify({
         title: lState.value.NewTitle,
+        // color: pState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
@@ -91,6 +106,7 @@ const GetLists = () => {
   return {
     List,
     ListId,
+    ProjectId,
     GetSpecificList,
     lState,
     pState,
@@ -98,6 +114,7 @@ const GetLists = () => {
     NewList,
     DeleteList,
     EditList,
+    GetAllListsFromProject
   };
 };
 
