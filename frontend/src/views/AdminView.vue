@@ -15,10 +15,10 @@
         <p>
           {{ User.userLevel }}
         </p>
-        <router-link :to="`/user/${User._id}`">
+        <!-- <router-link :to="`/user/${User._id}`">
           <button @click="EditUser(User.value._id)">Edit User</button>
         </router-link>
-        <button @click="DeleteUser(User._id)">Delete User</button>
+        <button @click="DeleteUser(User._id)">Delete User</button> -->
       </div>
     </div>
   </q-page>
@@ -48,4 +48,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.Useritem {
+  margin: 1%;
+  padding: 1%;
+  border: 1px black dotted;
+  border-radius: 5px;
+}
 </style>
