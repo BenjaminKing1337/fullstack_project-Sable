@@ -74,7 +74,7 @@
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
         <router-link  :to="`/workspace/${Project._id}`">
-          <button>Open</button>
+          <q-btn class="full-width">Open</q-btn>
           <!-- <p align="center" active clickable v-ripple>Open</p> -->
         </router-link>
       </q-card>

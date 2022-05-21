@@ -16,7 +16,7 @@ const GetLists = () => {
   const lState = ref({
     NewTitle: "",
     NewIs_Complete: "false",
-    // NewColor: "",
+    NewColor: "#fd9f28",
     ProjectId: "",
     Lists: {},
   });
@@ -55,7 +55,7 @@ const GetLists = () => {
         ProjectId: url_id,
         // ProjectId: lState.value.ProjectId,
         title: lState.value.NewTitle,
-        // color: pState.value.NewColor,
+        color: lState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
@@ -81,7 +81,7 @@ const GetLists = () => {
       },
       body: JSON.stringify({
         title: lState.value.NewTitle,
-        // color: pState.value.NewColor,
+        color: lState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
       }),
     };

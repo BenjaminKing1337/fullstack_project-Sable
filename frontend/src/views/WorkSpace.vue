@@ -9,6 +9,19 @@
         <br />
         <input type="text" placeholder="Title" v-model="lState.NewTitle" />
         <br />
+        <div class="disable_scroll">
+          <q-color
+            v-model="lState.NewColor"
+            no-header
+            no-footer
+            default-view="palette"
+            class="my-picker scroll overflow-hidden"
+          />
+          <q-badge color="grey-3" text-color="black" class="q-mb-sm">
+            {{ lState.NewColor }}
+          </q-badge>
+        </div>
+        <br />
         Complete
         <input
           id="checkbox"
@@ -18,12 +31,15 @@
           v-model="lState.NewIs_Complete"
         />
         <br />
+
         <button @click="NewList()">Create New List</button>
       </div>
     </div>
 
     <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
-        <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
+      <!-- LIST LOOP  -->
+      <div v-for="List in lState.Lists" :key="List._id" class="listitem">
+       <q-card class="my-card">
           <q-card-section
             class="text-white title_sec"
             v-bind:style="{ backgroundColor: List.color }"
@@ -85,6 +101,21 @@
           </q-card-section>
           <q-card-section class="card_sec">
             <q-list>
+              <div class="createInList">
+                <div class="create">
+                  <div class="new">
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="Task"
+                      v-model="tState.NewTaskItem"
+                      size="10"
+                    />
+                    <button @click="NewTask(List._id)">Create New Task</button>
+                  </div>
+                </div>
+              </div>
+              <!-- TASK LOOP  -->
               <div
                 v-for="Task in filterTasks(tState.Tasks, List._id)"
                 :key="Task._id"
@@ -117,15 +148,34 @@
                   </q-item-label>
                 </q-item-section>
               </q-item> -->
+              <!-- ADD CARD BUTTON  -->
+              <q-btn
+                class="full-width q-pr-lg q-pl-xs button_style"
+                @click="add_card = true"
+              >
+                <q-icon name="add" />
+                Add a card
+              </q-btn>
             </q-list>
           </q-card-section>
-          <!-- <q-btn
-            class="full-width q-pr-lg q-pl-xs button_style"
-            @click="add_card = true"
-          >
-            <q-icon name="add" />
-            Add a card
-          </q-btn> -->
+        </q-card>  
+        
+   
+      <!-- Add card -->
+    <q-dialog
+      v-model="add_card"
+      persistent
+      transition-show="rotate"
+      transition-hide="rotate"
+    >
+
+    
+      <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
+        <q-card-section class="q-pa-sm">
+          <div class="text-h6">Add a card</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none q-ml-md">
           <div class="createInList">
             <div class="create">
               <div class="new">
@@ -140,21 +190,6 @@
               </div>
             </div>
           </div>
-        </q-card>
-    </div>
-    <!-- Add card -->
-    <q-dialog
-      v-model="add_card"
-      persistent
-      transition-show="rotate"
-      transition-hide="rotate"
-    >
-      <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
-        <q-card-section class="q-pa-sm">
-          <div class="text-h6">Add a card</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none q-ml-md">
           <q-input class="q-mb-sm" v-model="title" label="Title" filled />
           <q-input
             class="q-mb-sm"
@@ -183,6 +218,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
     <!-- Edit List -->
     <q-dialog
       v-model="edit_list"
@@ -261,6 +297,8 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    </div>
+    </div>
   </q-page>
 </template>
 
