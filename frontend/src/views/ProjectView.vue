@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Editing a Project</h1>
+ <q-page class="q-pa-xl page">
+    <h1>Edit Project</h1>
 
     <div v-for="Item in Project" :key="Item._id">
       Name:
@@ -37,7 +37,7 @@
     <button @click="EditProject()">Update Project</button>
 
     <hr />
-  </div>
+  </q-page>
 </template>
 
 <script>

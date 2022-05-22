@@ -1,3 +1,4 @@
+import { LocalStorage } from "quasar";
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import baseUrl from './baseUrl';
@@ -18,6 +19,7 @@ const GetTasks = () => {
     NewDeadline: "",
     NewTaskItem: "",
     ListId: "",
+    UserId: localStorage.getItem("userid"),
     Tasks: {},
   });
 
@@ -56,8 +58,9 @@ const GetTasks = () => {
       },
       body: JSON.stringify({
         // ListId: tState.value.ListId,
+        UserId: localStorage.getItem("userid"),
         ListId: listId,
-        author: tState.value.NewAuthor ? tState.value.NewAuthor : '',
+        author: tState.value.NewAuthor ? tState.value.NewAuthor : LocalStorage.getItem("name"),
         task: tState.value.NewTaskItem,
         description: tState.value.NewDescription ? tState.value.NewDescription : '',
         status: tState.value.NewStatus ? tState.value.NewStatus : "",
@@ -87,6 +90,7 @@ const GetTasks = () => {
         // "auth-token": state.token
       },
       body: JSON.stringify({
+        UserId: localStorage.getItem("userid"),
         author: tState.value.NewAuthor ? tState.value.NewAuthor : '',
         task: tState.value.NewTaskItem,
         description: tState.value.NewDescription ? tState.value.NewDescription : '',

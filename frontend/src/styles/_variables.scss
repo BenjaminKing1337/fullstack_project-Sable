@@ -16,6 +16,12 @@ $cs: (
   }
 }
 
+.valuesBorder {
+  border-radius: 5px;
+  border: 1px dotted map-get($cs, 4);
+}
+
+
 /* Scroll bar stylings */
 ::-webkit-scrollbar {
   width: 10px;
@@ -52,10 +58,22 @@ $cs: (
   justify-content: space-between;
 }
 
+.justifyc {
+  justify-content: center;
+}
+
 .flexend {
   justify-self: flex-end;
 }
 
 .alignc {
   align-items: center;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
