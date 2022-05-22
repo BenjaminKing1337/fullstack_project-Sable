@@ -69,6 +69,7 @@ const GetTasks = () => {
       }),
     };
     console.log(RequestOptions.body)
+    tState.value.NewTaskItem = ""
     fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
     });

@@ -1,41 +1,6 @@
 <template>
   <q-page class="q-pa-xl page">
-    <h5>Here goes the project title</h5>
-
-    <!-- Create New List in Project -->
-    <div class="create">
-      <div class="new">
-        <h4>Create New List</h4>
-        <br />
-        <input type="text" placeholder="Title" v-model="lState.NewTitle" />
-        <br />
-        <div class="disable_scroll">
-          <q-color
-            v-model="lState.NewColor"
-            no-header
-            no-footer
-            default-view="palette"
-            class="my-picker scroll overflow-hidden"
-          />
-          <q-badge color="grey-3" text-color="black" class="q-mb-sm">
-            {{ lState.NewColor }}
-          </q-badge>
-        </div>
-        <br />
-        Complete
-        <input
-          id="checkbox"
-          type="checkbox"
-          checked="true"
-          placeholder="Complete"
-          v-model="lState.NewIs_Complete"
-        />
-        <br />
-
-        <button @click="NewList()">Create New List</button>
-      </div>
-    </div>
-
+    <h5>Workspace</h5>
     <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
       <!-- LIST LOOP  -->
        <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
@@ -100,28 +65,47 @@
           </q-card-section>
           <q-card-section class="card_sec">
             <q-list>
-              <!-- TASK LOOP 
+              <!-- TASK LOOP -->
               <q-item
                 clickable
                 v-for="Task in filterTasks(tState.Tasks, List._id)" :key="Task._id"
-                @click="open_task = true"
               >
                 <q-item-section>
-                  <q-item-label>{{ Task.task }}</q-item-label>
-                  <q-item-label
-                    class="status text-weight-bold"
-                    caption
-                    :class="{
-                      'done': Task.status === 'done',
-                      'pending': Task.status === 'pending',
-                      'not-done': Task.status === 'not-done',
-                    }"
-                  >
-                    {{ Task.status }}
-                  </q-item-label>
+                  <router-link :to="`/task/${Task._id}`" class="remove_linkStyle">
+                    <q-item-label>{{ Task.task }}</q-item-label>
+                    <q-item-label
+                      class="status text-weight-bold"
+                      caption
+                      :class="{
+                        'done': Task.status === 'done',
+                        'pending': Task.status === 'pending',
+                        'not-done': Task.status === 'not-done',
+                      }"
+                    >
+                      {{ Task.status }}
+                    </q-item-label>
+                  </router-link>
                 </q-item-section>
-              </q-item> -->
-              <div class="createInList">
+                <q-item-section side>
+                  <q-btn @click="DeleteTask(Task._id)" class="gt-xs" size="12px" round icon="delete" />
+                </q-item-section>
+              </q-item>
+              
+              <!-- TASK LOOP  -->
+              <!-- <div
+                v-for="Task in filterTasks(tState.Tasks, List._id)"
+                :key="Task._id"
+                class="text-subtitle2 border"
+              >
+                <router-link :to="`/task/${Task._id}`">
+                  <p>
+                    {{ Task.task }}
+                  </p>
+                </router-link>
+                <button @click="DeleteTask(Task._id)">Delete Task</button>
+              </div> -->
+
+              <!-- <div class="createInList">
                 <div class="create">
                   <div class="new">
                     <br />
@@ -134,61 +118,61 @@
                     <button @click="NewTask(List._id)">Create New Task</button>
                   </div>
                 </div>
+              </div> -->
+              <div class="flex add_task">
+                <q-input v-model="tState.NewTaskItem" debounce="1000000000" class="q-pl-none q-pr-none input_style" bg-color="transparent" color="orange" filled placeholder="Add task" />
+                <q-btn class="btn_style" @click="NewTask(List._id)">
+                  <q-icon color="orange" name="add" />
+                </q-btn>
               </div>
-              <!-- TASK LOOP  -->
-              <div
-                v-for="Task in filterTasks(tState.Tasks, List._id)"
-                :key="Task._id"
-                class="text-subtitle2 border"
-              >
-                
-                <router-link :to="`/task/${Task._id}`">
-                  <p>
-                    {{ Task.task }}
-                  </p>
-
-                  <!-- <button @click="EditTask(Task.value._id)">Edit Task</button> -->
-                </router-link>
-                <button @click="DeleteTask(Task._id)">Delete Task</button>
-                <!--<p>Name:{{ Task.task }}</p> 
-                <p>Decription: {{ Task.description }}</p>
-                <p>Deadline: {{ Task.deadline }}</p>
-                <p>Status: {{ Task.status }}</p>
-                <p>Optional?: {{ Task.is_optional }}</p> -->
-              </div>
-              <!-- <q-item
-                clickable
-                v-for="task in tasks"
-                v-bind:key="task"
-                @click="open_task = true"
-              >
-                <q-item-section>
-                  <q-item-label>{{ task.title }}</q-item-label>
-                  <q-item-label
-                    class="status text-weight-bold"
-                    caption
-                    :class="{
-                      done: task.status === 'done',
-                      pending: task.status === 'pending',
-                      'not-done': task.status === 'not-done',
-                    }"
-                  >
-                    {{ task.status }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item> -->
-              <!-- ADD CARD BUTTON  -->
-              <q-btn
-                class="full-width q-pr-lg q-pl-xs button_style"
-                @click="add_card = true"
-              >
-                <q-icon name="add" />
-                Add a card
-              </q-btn>
             </q-list>
           </q-card-section>
-        </q-card>  
+       </q-card>  
     </div>
+    <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
+      <q-icon name="add" />
+      Add List
+    </q-btn>
+    <!-- ADD NEW LIST -->
+    <q-dialog
+      v-model="prompt"
+      persistent
+      transition-show="rotate"
+      transition-hide="rotate"
+    >
+      <q-card class="q-pa-md" style="min-width: 350px">
+        <q-card-section class="q-pa-sm">
+          <div class="text-h6">Create a List</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none q-ml-md">
+          <q-input
+            class="q-mb-sm"
+            v-model="lState.NewTitle"
+            label="Name"
+            filled
+          />
+          <div class="disable_scroll">
+            <q-color
+              v-model="lState.NewColor"
+              no-header
+              no-footer
+              default-view="palette"
+              class="my-picker scroll overflow-hidden"
+            />
+            <q-badge color="grey-3" text-color="black" class="q-mb-sm">
+              {{ lState.NewColor }}
+            </q-badge>
+          </div>
+          <q-checkbox v-model="lState.NewIs_Complete" label="Label on Right" />
+        </q-card-section>
+
+        <q-card-actions align="right" class="myOrange_color text-weight-bold">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn @click="NewList()" flat label="Create" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -256,7 +240,9 @@ export default {
     };
   },
   data() {
-    return {};
+    return {
+      prompt: false
+    };
   },
 };
 </script>
@@ -295,6 +281,25 @@ export default {
     }
     .not-done {
       background-color: rgb(247, 112, 112);
+    }
+    .remove_linkStyle{
+      text-decoration: none;
+      color: black;
+    }
+    .add_task{
+      width: 100%;
+      .input_style{
+        width: 85%;
+        padding-left: 30px;
+        &:hover{}
+      }
+      .btn_style{
+        width: 20%;
+        padding: 0;
+        i{
+          padding: 0;
+        }
+      }
     }
   }
 }

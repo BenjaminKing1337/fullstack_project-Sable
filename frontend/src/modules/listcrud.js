@@ -16,7 +16,7 @@ const GetLists = () => {
 
   const lState = ref({
     NewTitle: "",
-    NewIs_Complete: "false",
+    NewIs_Complete: false,
     NewColor: "#fd9f28",
     ProjectId: "",
     Lists: {},
