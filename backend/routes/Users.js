@@ -32,7 +32,6 @@ Router.post("/register", async (req, res) => {
 
   // create User object and save in db
   const UserObject = new User({
-    UserId: localStorage.getItem("userid"),
     name: req.body.name,
     email: req.body.email,
     pass: Pass,
