@@ -4,10 +4,10 @@ info:
   description: MongoDB ExpressJS NodeJS REST API
   version: 1.0.0
 servers:
-  - url: http://localhost:4000/
-    description: Localhost development server
   - url: https://sableplan.herokuapp.com/
     description: Heroku remote server
+  - url: http://localhost:4000/
+    description: Localhost development server
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -16,12 +16,42 @@ components:
       name: auth-token
 
   schemas:
-    Task:
+    Project:
       type: object
       properties:
         id:
           type: string
         name:
+          type: string
+        description:
+          type: string
+        color:
+          type: string
+        deadline:
+          type: string
+
+    List:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        color:
+          type: string
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        task:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        deadline:
           type: string
         author:
           type: string
@@ -34,6 +64,8 @@ components:
         email:
           type: string
         pass:
+          type: string
+        userLevel:
           type: string
           
 
@@ -225,3 +257,229 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Task"
+  
+  /lists:
+    post:
+      tags:
+        - Lists
+      summary: Add New List
+      description: Add a new List
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/List"
+
+      responses:
+        201:
+          description: List added succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+    
+    get:
+      tags:
+        - Lists
+      summary: View All Lists
+      description: Retrieves a list of Lists as objects.
+      responses:
+        200:
+          description: A list of List objects in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/List"
+
+  /lists/{id}:
+    get:
+      tags:
+        - Lists
+      summary: View Specific List
+      description: Retrieves a specific List based on its id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      responses:
+        200:
+          description: A List in the format of an object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/List"
+
+    put:
+      tags:
+        - Lists
+      summary: Edit List Information
+      description: Updates a specific List based on its id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/List"
+
+      responses:
+        201:
+          description: List updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+
+    delete:
+      tags:
+        - Lists
+      summary: Delete List
+      description: Deletes a specific List based on it id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+
+      responses:
+        201:
+          description: List deleted succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/List"
+  
+  /projects:
+    post:
+      tags:
+        - Projects
+      summary: Add New Project
+      description: Add a new Project
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+
+      responses:
+        201:
+          description: Project added succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    
+    get:
+      tags:
+        - Projects
+      summary: View All Projects
+      description: Retrieves a list of Projects as objects.
+      responses:
+        200:
+          description: A list of Project objects in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+
+  /projects/{id}:
+    get:
+      tags:
+        - Projects
+      summary: View Specific Project
+      description: Retrieves a specific Project based on its id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      responses:
+        200:
+          description: A Project in the format of an object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+
+    put:
+      tags:
+        - Projects
+      summary: Edit Project Information
+      description: Updates a specific Project based on its id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+
+      responses:
+        201:
+          description: Project updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+
+    delete:
+      tags:
+        - Projects
+      summary: Delete Project
+      description: Deletes a specific Project based on it id
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+
+      responses:
+        201:
+          description: Project deleted succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
