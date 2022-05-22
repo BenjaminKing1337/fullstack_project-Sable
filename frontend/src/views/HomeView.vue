@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SableWelcome />
+    <SableWelcome/>
   </div>
 </template>
 
@@ -8,12 +8,12 @@
 // import axios from "axios";
 import SableWelcome from "@/components/SableWelcome.vue";
 
-
 export default {
   name: "HomeView",
   components: {
-    SableWelcome
-},
+    SableWelcome,
+  },
+
   // async created() {
   //  /*  const response = */ await axios.get("users/user", {
   //     headers: { 'auth-token': localStorage.getItem("Token"),

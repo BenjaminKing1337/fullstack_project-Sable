@@ -33,6 +33,13 @@ $cs: (
   max-width: 280px;
 }
 
+.sablebgcolor {
+  background-color: map-get($cs, 3) !important;
+}
+.sablecolor {
+  color: map-get($cs, 4);
+}
+
 /* Scroll bar stylings */
 ::-webkit-scrollbar {
   width: 5px;

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthGuard from './auth-guard'
+import LoggedInGuard from './loggedin-guard'
 import AdminGuard from './admin-guard'
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
     path: "/register",
     name: "register",
     component: () => import("../components/RegisterComponent.vue"),
+    beforeEnter: LoggedInGuard
   },
   {
     path: "/terms",
@@ -35,6 +37,7 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("../components/LoginComponent.vue"),
+    beforeEnter: LoggedInGuard
   },
   {
     path: "/logout",

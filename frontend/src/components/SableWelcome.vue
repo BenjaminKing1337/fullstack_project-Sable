@@ -4,13 +4,15 @@
     <h2 class="text-center">Welcome to Sable</h2>
     <div class="flex">
       
-      <router-link class="router-link" to="/register">
+      <router-link v-if="!userAuth()" class="router-link" to="/register">
         <q-btn class="q-mr-xs q-px-xl" label="Sign Up" outline color="orange" />
       </router-link>
-      <router-link class="router-link" to="/login">
+      <router-link v-if="!userAuth()" class="router-link" to="/login">
         <q-btn class="myOrange q-ml-xs q-px-xl" label="Log In"  glossy color="orange" />
       </router-link>
       
+      <div v-else class="flex alignc"><h5>You're logged in as</h5>&nbsp;&nbsp;<h4><strong class="sablecolor">{{ name }}</strong></h4></div>
+
     </div>
   </q-page>
 </template>
@@ -26,6 +28,21 @@
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'HelloWorld',
+  data() {
+    return{
+      name:localStorage.getItem("name")
+    }
+  },
+  setup() {
+    return {
+      userAuth() {
+        return (
+          localStorage.getItem("Token") !== null &&
+          localStorage.getItem("Token") !== undefined
+        );
+      },
+    };
+  },
 }
 </script>
