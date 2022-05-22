@@ -38,8 +38,7 @@
 
     <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
       <!-- LIST LOOP  -->
-      <div v-for="List in lState.Lists" :key="List._id" class="listitem">
-        <q-card class="my-card">
+       <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
           <q-card-section
             class="text-white title_sec"
             v-bind:style="{ backgroundColor: List.color }"
@@ -101,6 +100,27 @@
           </q-card-section>
           <q-card-section class="card_sec">
             <q-list>
+              <!-- TASK LOOP 
+              <q-item
+                clickable
+                v-for="Task in filterTasks(tState.Tasks, List._id)" :key="Task._id"
+                @click="open_task = true"
+              >
+                <q-item-section>
+                  <q-item-label>{{ Task.task }}</q-item-label>
+                  <q-item-label
+                    class="status text-weight-bold"
+                    caption
+                    :class="{
+                      'done': Task.status === 'done',
+                      'pending': Task.status === 'pending',
+                      'not-done': Task.status === 'not-done',
+                    }"
+                  >
+                    {{ Task.status }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item> -->
               <div class="createInList">
                 <div class="create">
                   <div class="new">
@@ -166,152 +186,7 @@
               </q-btn>
             </q-list>
           </q-card-section>
-        </q-card>
-
-        <!-- Add card -->
-        <q-dialog
-          v-model="add_card"
-          persistent
-          transition-show="rotate"
-          transition-hide="rotate"
-        >
-          <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
-            <q-card-section class="q-pa-sm">
-              <div class="text-h6">Add a card</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none q-ml-md">
-              <div class="createInList">
-                <div class="create">
-                  <div class="new">
-                    <br />
-                    <input
-                      type="text"
-                      placeholder="Task"
-                      v-model="tState.NewTaskItem"
-                      size="10"
-                    />
-                    <button @click="NewTask(List._id)">Create New Task</button>
-                  </div>
-                </div>
-              </div>
-              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-              <q-input
-                class="q-mb-sm"
-                v-model="description"
-                type="textarea"
-                label="Description"
-                filled
-              />
-              <q-input
-                class="q-mb-sm"
-                v-model="date"
-                type="date"
-                filled
-                hint="Pick a deadline"
-              />
-              <div class="column">
-                <q-radio v-model="status" val="done" label="Done" />
-                <q-radio v-model="status" val="pending" label="Pending" />
-                <q-radio v-model="status" val="not-done" label="Not-done" />
-              </div>
-            </q-card-section>
-
-            <q-card-actions
-              align="right"
-              class="myOrange_color text-weight-bold"
-            >
-              <q-btn flat label="Cancel" v-close-popup />
-              <q-btn flat label="Add" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-
-        <!-- Edit List -->
-        <q-dialog
-          v-model="edit_list"
-          persistent
-          transition-show="rotate"
-          transition-hide="rotate"
-        >
-          <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
-            <q-card-section class="q-pa-sm">
-              <div class="text-h6">Edit List</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none q-ml-md">
-              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-              <div class="disable_scroll">
-                <q-color
-                  v-model="hex"
-                  no-header
-                  no-footer
-                  default-view="palette"
-                  class="my-picker scroll overflow-hidden"
-                />
-                <q-badge color="grey-3" text-color="black" class="q-mb-sm">
-                  {{}}
-                </q-badge>
-              </div>
-            </q-card-section>
-
-            <q-card-actions
-              align="right"
-              class="myOrange_color text-weight-bold"
-            >
-              <q-btn flat label="Cancel" v-close-popup />
-              <q-btn flat label="Edit" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-        <!-- Open Task -->
-        <q-dialog
-          v-model="open_task"
-          persistent
-          transition-show="rotate"
-          transition-hide="rotate"
-        >
-          <q-card
-            class="q-pa-md overflow-hidden"
-            style="min-width: 350px; width: 60%"
-          >
-            <q-card-section class="q-pa-sm">
-              <div class="text-h6">Task</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none q-ml-md">
-              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-              <q-input
-                class="q-mb-sm"
-                v-model="description"
-                type="textarea"
-                label="Description"
-                filled
-              />
-              <q-input
-                class="q-mb-sm"
-                v-model="date"
-                type="date"
-                filled
-                hint="Pick a deadline"
-              />
-              <div class="column">
-                <q-radio v-model="status" val="done" label="Done" />
-                <q-radio v-model="status" val="pending" label="Pending" />
-                <q-radio v-model="status" val="not-done" label="Not-done" />
-              </div>
-            </q-card-section>
-
-            <q-card-actions
-              align="right"
-              class="myOrange_color text-weight-bold"
-            >
-              <q-btn flat label="Cancel" v-close-popup />
-              <q-btn flat label="Edit" v-close-popup />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-      </div>
+        </q-card>  
     </div>
   </q-page>
 </template>
@@ -380,61 +255,7 @@ export default {
     };
   },
   data() {
-    return {
-      lists: [
-        { title: "My planet", color: "purple" },
-        { title: "My world", color: "blue" },
-        { title: "My plan", color: "green" },
-        { title: "My vingardium leviosa", color: "#ffff00" },
-        { title: "Me running out of ideas", color: "red" },
-        { title: "Lorem Ipsum", color: "purple" },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          color: "purple",
-        },
-      ],
-      tasks: [
-        {
-          title: "A task",
-          description: "description of a task",
-          status: "done",
-        },
-        {
-          title: "Another task",
-          description: "description of a task",
-          status: "pending",
-        },
-        {
-          title: "One more task",
-          description: "description of a task",
-          status: "not-done",
-        },
-      ],
-      add_card: false,
-      edit_list: false,
-      open_task: false,
-      status: "",
-    };
+    return {};
   },
 };
 </script>
