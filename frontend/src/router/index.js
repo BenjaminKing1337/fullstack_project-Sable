@@ -27,6 +27,11 @@ const routes = [
     component: () => import("../components/RegisterComponent.vue"),
   },
   {
+    path: "/terms",
+    name: "terms",
+    component: () => import("../components/TermsComponent.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("../components/LoginComponent.vue"),
@@ -36,6 +41,18 @@ const routes = [
     name: "logout",
     component: () => import("../components/LogOut.vue"),
     beforeEnter: AuthGuard
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/AdminView.vue"),
+    beforeEnter: AdminGuard
+  },
+  {
+    path: "/user/:id",
+    name: "user",
+    component: () => import("../views/UserView.vue"),
+    beforeEnter: AdminGuard
   },
   {
     path: "/projects",
@@ -64,18 +81,8 @@ const routes = [
     component: () => import("../views/ListView.vue"),
     beforeEnter: AuthGuard
   },
-  {
-    path: "/admin",
-    name: "admin",
-    component: () => import("../views/AdminView.vue"),
-    beforeEnter: AdminGuard
-  },
-  {
-    path: "/user/:id",
-    name: "user",
-    component: () => import("../views/UserView.vue"),
-    beforeEnter: AdminGuard
-  },
+  
+  
 ];
 
 const xRouter = createRouter({

@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-pa-xl page flex justifyc">
+  <q-page class="q-pa-xl page">
     <div>
       <q-card v-for="Item in List" :key="Item._id">
       <q-card-section class="q-mb-md">
         <div class="coloredName" v-bind:style="{ backgroundColor: Item.color }">
-          <h2>{{ Item.title }}</h2>
+          <h2 class="textShadow text-white">{{ Item.title }}</h2>
         </div>
       </q-card-section>
 
@@ -72,11 +72,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.coloredName {
-  border-radius: 5px;
-  padding: 1%;
-}
-.my-picker {
-  max-width: 280px;
-}
+
 </style>

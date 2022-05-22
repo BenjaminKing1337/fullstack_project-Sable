@@ -21,6 +21,17 @@ $cs: (
   border: 1px dotted map-get($cs, 4);
 }
 
+.textShadow {
+  text-shadow: 1px 1px 3px rgb(43, 40, 40);
+}
+
+.coloredName {
+  border-radius: 5px;
+  padding: 1%;
+}
+.my-picker {
+  max-width: 280px;
+}
 
 /* Scroll bar stylings */
 ::-webkit-scrollbar {

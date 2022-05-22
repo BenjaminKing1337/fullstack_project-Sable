@@ -30,6 +30,7 @@
                 </q-tooltip>
               </div>
               <div class="text-subtitle2">{{ Project.description }}</div>
+              
             </div>
 
             <div class="col-auto">
@@ -44,9 +45,9 @@
                   <q-list>
                     <q-item clickable :to="`/project/${Project._id}`">
                       <q-item-section class="flex text-weight-bold"
-                        ><button @click="EditProject(Project.value._id)">
+                        ><q-btn @click="EditProject(Project.value._id)">
                           Edit Project
-                        </button></q-item-section
+                        </q-btn></q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon
@@ -58,9 +59,9 @@
                     </q-item>
                     <q-item clickable class="bg-negative">
                       <q-item-section class="text-white text-weight-bold"
-                        ><button @click="DeleteProject(Project._id)">
+                        ><q-btn @click="DeleteProject(Project._id)">
                           Delete Project
-                        </button></q-item-section
+                        </q-btn></q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon color="white" size="1.5em" name="delete" />
@@ -71,6 +72,7 @@
               </q-btn>
             </div>
           </div>
+        <div class="text-subtitle2">{{ Project.deadline }}</div>
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
         <router-link  :to="`/workspace/${Project._id}`">

@@ -50,7 +50,7 @@
         />
 
         <q-toggle v-model="accept" label="I accept the license and terms" />
-
+        <q-item :to="`/terms`">Terms and License Agreement</q-item>
         <div class="flex justify-between">
           <q-btn label="Submit" type="submit" class="myOrange" />
           <q-btn label="Reset" type="reset" color="orange" flat class="q-ml-sm">
@@ -68,6 +68,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import Usercrud from "../modules/usercrud";
+
 // import { onMounted } from "vue";
 
 export default {

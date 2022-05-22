@@ -303,9 +303,7 @@ export default {
     }
   }
 }
-.textShadow {
-  text-shadow: 1px 1px 3px rgb(43, 40, 40);
-}
+
 .q-btn:before {
   box-shadow: none;
 }

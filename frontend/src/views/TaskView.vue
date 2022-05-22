@@ -1,6 +1,5 @@
 <template>
-  <q-page class="q-pa-xl page"
-    ><!-- flex justifyc -->
+  <q-page class="q-pa-xl page">
 
     <div>
       <q-card v-for="Item in Task" :key="Item._id">
