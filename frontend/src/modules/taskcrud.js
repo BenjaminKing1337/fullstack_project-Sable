@@ -63,7 +63,7 @@ const GetTasks = () => {
         author: tState.value.NewAuthor ? tState.value.NewAuthor : LocalStorage.getItem("name"),
         task: tState.value.NewTaskItem,
         description: tState.value.NewDescription ? tState.value.NewDescription : '',
-        status: tState.value.NewStatus ? tState.value.NewStatus : "",
+        status: tState.value.NewStatus ? tState.value.NewStatus : "not-done",
         is_optional: tState.value.NewIs_Optional ? tState.value.NewIs_Optional : false,
         deadline: tState.value.NewDeadline,
       }),

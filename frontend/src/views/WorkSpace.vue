@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xl page">
     <h5>Workspace</h5>
-    <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
+    <div class="flex no-wrap q-mb-md q-pb-md" style="overflow-x: auto">
       <!-- LIST LOOP  -->
        <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
           <q-card-section
@@ -64,7 +64,7 @@
             </div>
           </q-card-section>
           <q-card-section class="card_sec">
-            <q-list>
+            <q-list class="list_sec">
               <!-- TASK LOOP -->
               <q-item
                 clickable
@@ -90,36 +90,8 @@
                   <q-btn @click="DeleteTask(Task._id)" class="gt-xs" size="12px" round icon="delete" />
                 </q-item-section>
               </q-item>
-              
-              <!-- TASK LOOP  -->
-              <!-- <div
-                v-for="Task in filterTasks(tState.Tasks, List._id)"
-                :key="Task._id"
-                class="text-subtitle2 border"
-              >
-                <router-link :to="`/task/${Task._id}`">
-                  <p>
-                    {{ Task.task }}
-                  </p>
-                </router-link>
-                <button @click="DeleteTask(Task._id)">Delete Task</button>
-              </div> -->
 
-              <!-- <div class="createInList">
-                <div class="create">
-                  <div class="new">
-                    <br />
-                    <input
-                      type="text"
-                      placeholder="Task"
-                      v-model="tState.NewTaskItem"
-                      size="10"
-                    />
-                    <button @click="NewTask(List._id)">Create New Task</button>
-                  </div>
-                </div>
-              </div> -->
-              <div class="flex add_task">
+              <div class="flex q-pb-sm q-pt-sm add_task">
                 <q-input v-model="tState.NewTaskItem" debounce="1000000000" class="q-pl-none q-pr-none input_style" bg-color="transparent" color="orange" filled placeholder="Add task" />
                 <q-btn class="btn_style" @click="NewTask(List._id)">
                   <q-icon color="orange" name="add" />
@@ -164,7 +136,7 @@
               {{ lState.NewColor }}
             </q-badge>
           </div>
-          <q-checkbox v-model="lState.NewIs_Complete" label="Label on Right" />
+          <q-checkbox v-model="lState.NewIs_Complete" label="Is completed?" />
         </q-card-section>
 
         <q-card-actions align="right" class="myOrange_color text-weight-bold">
@@ -254,7 +226,7 @@ export default {
   max-width: 400px;
   box-shadow: none;
   margin: 20px 20px 0 0;
-  background-color: #dfe1e7;
+  background-color: #F5F5F5;
 
   .title_sec {
     height: 45px;
@@ -267,11 +239,14 @@ export default {
     }
   }
   .card_sec {
-    height: 200px;
+    height: auto;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
     .status {
       border-radius: 10px;
-      width: 28%;
       text-align: center;
+      width: 40%;
     }
     .done {
       background-color: limegreen;
@@ -291,7 +266,6 @@ export default {
       .input_style{
         width: 85%;
         padding-left: 30px;
-        &:hover{}
       }
       .btn_style{
         width: 20%;
