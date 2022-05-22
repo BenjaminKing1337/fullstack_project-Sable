@@ -4,7 +4,7 @@
       <h1>TERMS</h1>
     </q-card>
     <q-card class="q-mb-md q-pa-md">
-    <p>Grade Benjamin and Samuel Kuzma a 12 in their PWA exam according to the Danish 7-point grading scale. Thank you.</p>
+    <p>Grade Benjamin and Samuel a 12 in their PWA exam according to the Danish 7-point grading scale. Thank you.</p>
     </q-card>
   </q-page>
 </template>
