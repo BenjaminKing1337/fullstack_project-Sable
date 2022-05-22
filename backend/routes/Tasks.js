@@ -59,10 +59,6 @@ Router.put("/update/:id", async (Req, Res) => {
   const UpdTask = await Task.updateOne(
     { _id: Req.params.id },
     { $set: Req.body }
-    // {
-    //   author: "Bart",
-    //   task: "Go Skating",
-    // }
   );
   Res.json(UpdTask);
 });

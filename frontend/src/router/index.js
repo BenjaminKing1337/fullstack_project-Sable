@@ -9,12 +9,12 @@ const routes = [
     name: "home",
     component: HomeView,
   },
-  {
-    path: "/tasks",
-    name: "tasks",
-    component: () => import("../views/TasksView.vue"),
-    beforeEnter: AuthGuard
-  },
+  // {
+  //   path: "/tasks",
+  //   name: "tasks",
+  //   component: () => import("../views/TasksView.vue"),
+  //   beforeEnter: AuthGuard
+  // },
   {
     path: "/task/:id",
     name: "task",
@@ -43,14 +43,26 @@ const routes = [
     component: () => import("../views/ProjectsView.vue"),
   },
   {
+    path: "/project/:id",
+    name: "project",
+    component: () => import("../views/ProjectView.vue"),
+    beforeEnter: AuthGuard
+  },
+  {
     path: "/workspace/:id",
     name: "workspace",
     component: () => import("../views/WorkSpace.vue"),
   },
+  // {
+  //   path: "/lists",
+  //   name: "lists",
+  //   component: () => import("../views/ListsView.vue"),
+  // },
   {
-    path: "/lists",
-    name: "lists",
-    component: () => import("../views/ListsView.vue"),
+    path: "/list/:id",
+    name: "list",
+    component: () => import("../views/ListView.vue"),
+    beforeEnter: AuthGuard
   },
   {
     path: "/admin",

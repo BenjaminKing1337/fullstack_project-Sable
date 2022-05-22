@@ -100,7 +100,7 @@ const GetTasks = () => {
       .then((Res) => {
         console.log(Res);
       });
-    Router.push("/tasks");
+    Router.go(-1);
   };
 
   const Task = ref({});

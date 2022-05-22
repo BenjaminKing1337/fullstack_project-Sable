@@ -42,7 +42,7 @@
                   fit
                 >
                   <q-list>
-                    <q-item clickable>
+                    <q-item clickable :to="`/project/${Project._id}`">
                       <q-item-section class="flex text-weight-bold"
                         ><button @click="EditProject(Project.value._id)">
                           Edit Project

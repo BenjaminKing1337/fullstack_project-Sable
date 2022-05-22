@@ -1,17 +1,18 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import baseUrl from './baseUrl';
-import Projectcrud from './projectcrud';
+import baseUrl from "./baseUrl";
+import Projectcrud from "./projectcrud";
 
 const GetLists = () => {
   const Route = useRoute();
   const Router = useRouter();
   const { pState, ProjectId } = Projectcrud;
   const ListId = computed(() => Route.params.id);
+  // const ListTitle = computed(() => Route.params.id);
   console.log("listId: ", ListId);
 
-  var url = window.location.pathname.split('/');
-  var url_id = url[2]
+  var url = window.location.pathname.split("/");
+  var url_id = url[2];
 
   const lState = ref({
     NewTitle: "",
@@ -20,7 +21,6 @@ const GetLists = () => {
     ProjectId: "",
     Lists: {},
   });
-
   const GetAllLists = async () => {
     try {
       await fetch(baseUrl + "/lists")
@@ -59,7 +59,7 @@ const GetLists = () => {
         is_Complete: lState.value.NewIs_Complete,
       }),
     };
-    fetch((baseUrl + "/lists/new"), RequestOptions).then(() => {
+    fetch(baseUrl + "/lists/new", RequestOptions).then(() => {
       GetAllListsFromProject(); // Updates page
     });
   };
@@ -90,7 +90,7 @@ const GetLists = () => {
       .then((Res) => {
         console.log(Res);
       });
-    Router.push("/lists");
+    Router.go(-1);
   };
 
   const List = ref({});

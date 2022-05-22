@@ -39,7 +39,7 @@
     <div class="flex no-wrap q-mb-xl q-pb-xl" style="overflow-x: auto">
       <!-- LIST LOOP  -->
       <div v-for="List in lState.Lists" :key="List._id" class="listitem">
-       <q-card class="my-card">
+        <q-card class="my-card">
           <q-card-section
             class="text-white title_sec"
             v-bind:style="{ backgroundColor: List.color }"
@@ -69,7 +69,7 @@
                     fit
                   >
                     <q-list>
-                      <q-item clickable @click="edit_list = true">
+                      <q-item clickable :to="`/list/${List._id}`">
                         <q-item-section class="flex text-weight-bold"
                           >Edit</q-item-section
                         >
@@ -122,6 +122,14 @@
                 class="text-subtitle2 border"
               >
                 <p>Name:{{ Task.task }}</p>
+                <router-link :to="`/task/${Task._id}`">
+                  <p>
+                    {{ Task.task }}
+                  </p>
+
+                  <!-- <button @click="EditTask(Task.value._id)">Edit Task</button> -->
+                </router-link>
+                <button @click="DeleteTask(Task._id)">Delete Task</button>
                 <!-- <p>Decription: {{ Task.description }}</p>
                 <p>Deadline: {{ Task.deadline }}</p>
                 <p>Status: {{ Task.status }}</p>
@@ -158,146 +166,152 @@
               </q-btn>
             </q-list>
           </q-card-section>
-        </q-card>  
-        
-   
-      <!-- Add card -->
-    <q-dialog
-      v-model="add_card"
-      persistent
-      transition-show="rotate"
-      transition-hide="rotate"
-    >
+        </q-card>
 
-    
-      <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
-        <q-card-section class="q-pa-sm">
-          <div class="text-h6">Add a card</div>
-        </q-card-section>
+        <!-- Add card -->
+        <q-dialog
+          v-model="add_card"
+          persistent
+          transition-show="rotate"
+          transition-hide="rotate"
+        >
+          <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
+            <q-card-section class="q-pa-sm">
+              <div class="text-h6">Add a card</div>
+            </q-card-section>
 
-        <q-card-section class="q-pt-none q-ml-md">
-          <div class="createInList">
-            <div class="create">
-              <div class="new">
-                <br />
-                <input
-                  type="text"
-                  placeholder="Task"
-                  v-model="tState.NewTaskItem"
-                  size="10"
-                />
-                <button @click="NewTask(List._id)">Create New Task</button>
+            <q-card-section class="q-pt-none q-ml-md">
+              <div class="createInList">
+                <div class="create">
+                  <div class="new">
+                    <br />
+                    <input
+                      type="text"
+                      placeholder="Task"
+                      v-model="tState.NewTaskItem"
+                      size="10"
+                    />
+                    <button @click="NewTask(List._id)">Create New Task</button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-          <q-input
-            class="q-mb-sm"
-            v-model="description"
-            type="textarea"
-            label="Description"
-            filled
-          />
-          <q-input
-            class="q-mb-sm"
-            v-model="date"
-            type="date"
-            filled
-            hint="Pick a deadline"
-          />
-          <div class="column">
-            <q-radio v-model="status" val="done" label="Done" />
-            <q-radio v-model="status" val="pending" label="Pending" />
-            <q-radio v-model="status" val="not-done" label="Not-done" />
-          </div>
-        </q-card-section>
+              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
+              <q-input
+                class="q-mb-sm"
+                v-model="description"
+                type="textarea"
+                label="Description"
+                filled
+              />
+              <q-input
+                class="q-mb-sm"
+                v-model="date"
+                type="date"
+                filled
+                hint="Pick a deadline"
+              />
+              <div class="column">
+                <q-radio v-model="status" val="done" label="Done" />
+                <q-radio v-model="status" val="pending" label="Pending" />
+                <q-radio v-model="status" val="not-done" label="Not-done" />
+              </div>
+            </q-card-section>
 
-        <q-card-actions align="right" class="myOrange_color text-weight-bold">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Add" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+            <q-card-actions
+              align="right"
+              class="myOrange_color text-weight-bold"
+            >
+              <q-btn flat label="Cancel" v-close-popup />
+              <q-btn flat label="Add" v-close-popup />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
 
-    <!-- Edit List -->
-    <q-dialog
-      v-model="edit_list"
-      persistent
-      transition-show="rotate"
-      transition-hide="rotate"
-    >
-      <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
-        <q-card-section class="q-pa-sm">
-          <div class="text-h6">Edit List</div>
-        </q-card-section>
+        <!-- Edit List -->
+        <q-dialog
+          v-model="edit_list"
+          persistent
+          transition-show="rotate"
+          transition-hide="rotate"
+        >
+          <q-card class="q-pa-md overflow-hidden" style="min-width: 350px">
+            <q-card-section class="q-pa-sm">
+              <div class="text-h6">Edit List</div>
+            </q-card-section>
 
-        <q-card-section class="q-pt-none q-ml-md">
-          <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-          <div class="disable_scroll">
-            <q-color
-              v-model="hex"
-              no-header
-              no-footer
-              default-view="palette"
-              class="my-picker scroll overflow-hidden"
-            />
-            <q-badge color="grey-3" text-color="black" class="q-mb-sm">
-              {{}}
-            </q-badge>
-          </div>
-        </q-card-section>
+            <q-card-section class="q-pt-none q-ml-md">
+              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
+              <div class="disable_scroll">
+                <q-color
+                  v-model="hex"
+                  no-header
+                  no-footer
+                  default-view="palette"
+                  class="my-picker scroll overflow-hidden"
+                />
+                <q-badge color="grey-3" text-color="black" class="q-mb-sm">
+                  {{}}
+                </q-badge>
+              </div>
+            </q-card-section>
 
-        <q-card-actions align="right" class="myOrange_color text-weight-bold">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Edit" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- Open Task -->
-    <q-dialog
-      v-model="open_task"
-      persistent
-      transition-show="rotate"
-      transition-hide="rotate"
-    >
-      <q-card
-        class="q-pa-md overflow-hidden"
-        style="min-width: 350px; width: 60%"
-      >
-        <q-card-section class="q-pa-sm">
-          <div class="text-h6">Task</div>
-        </q-card-section>
+            <q-card-actions
+              align="right"
+              class="myOrange_color text-weight-bold"
+            >
+              <q-btn flat label="Cancel" v-close-popup />
+              <q-btn flat label="Edit" v-close-popup />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+        <!-- Open Task -->
+        <q-dialog
+          v-model="open_task"
+          persistent
+          transition-show="rotate"
+          transition-hide="rotate"
+        >
+          <q-card
+            class="q-pa-md overflow-hidden"
+            style="min-width: 350px; width: 60%"
+          >
+            <q-card-section class="q-pa-sm">
+              <div class="text-h6">Task</div>
+            </q-card-section>
 
-        <q-card-section class="q-pt-none q-ml-md">
-          <q-input class="q-mb-sm" v-model="title" label="Title" filled />
-          <q-input
-            class="q-mb-sm"
-            v-model="description"
-            type="textarea"
-            label="Description"
-            filled
-          />
-          <q-input
-            class="q-mb-sm"
-            v-model="date"
-            type="date"
-            filled
-            hint="Pick a deadline"
-          />
-          <div class="column">
-            <q-radio v-model="status" val="done" label="Done" />
-            <q-radio v-model="status" val="pending" label="Pending" />
-            <q-radio v-model="status" val="not-done" label="Not-done" />
-          </div>
-        </q-card-section>
+            <q-card-section class="q-pt-none q-ml-md">
+              <q-input class="q-mb-sm" v-model="title" label="Title" filled />
+              <q-input
+                class="q-mb-sm"
+                v-model="description"
+                type="textarea"
+                label="Description"
+                filled
+              />
+              <q-input
+                class="q-mb-sm"
+                v-model="date"
+                type="date"
+                filled
+                hint="Pick a deadline"
+              />
+              <div class="column">
+                <q-radio v-model="status" val="done" label="Done" />
+                <q-radio v-model="status" val="pending" label="Pending" />
+                <q-radio v-model="status" val="not-done" label="Not-done" />
+              </div>
+            </q-card-section>
 
-        <q-card-actions align="right" class="myOrange_color text-weight-bold">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Edit" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    </div>
+            <q-card-actions
+              align="right"
+              class="myOrange_color text-weight-bold"
+            >
+              <q-btn flat label="Cancel" v-close-popup />
+              <q-btn flat label="Edit" v-close-popup />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+      </div>
     </div>
   </q-page>
 </template>

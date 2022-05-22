@@ -83,7 +83,7 @@
 
             <q-item-section> Projects </q-item-section>
           </q-item>
-          <q-item v-if="adminAuth()" active clickable v-ripple to="/lists">
+          <!-- <q-item v-if="adminAuth()" active clickable v-ripple to="/lists">
             <q-item-section avatar>
               <q-icon name="list" />
             </q-item-section>
@@ -96,7 +96,7 @@
             </q-item-section>
 
             <q-item-section> Tasks </q-item-section>
-          </q-item>
+          </q-item> -->
           <q-item v-if="!userAuth()" clickable v-ripple to="/register">
             <q-item-section avatar>
               <q-icon name="person_add" />

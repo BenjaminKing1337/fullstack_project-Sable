@@ -2,7 +2,7 @@
 const Mongoose = require("mongoose");
 const ListsSchema = new Mongoose.Schema({
   ProjectId: String,
-  title: String,
+  title: { type: String, default: "not-done" },
   color: String,
   is_Complete: Boolean,
 });

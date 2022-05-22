@@ -2,7 +2,7 @@
 const Mongoose = require("mongoose");
 const TasksSchema = new Mongoose.Schema({
   ListId: String,
-  task: String,
+  task: { type: String, required: true },
   description: String,
   status: String,
   is_optional: Boolean,

@@ -2,7 +2,7 @@
 const { string } = require("joi");
 const Mongoose = require("mongoose");
 const ProjectsSchema = new Mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
   description: String,
   status: Number,
   color: String,
