@@ -141,7 +141,7 @@
                 :key="Task._id"
                 class="text-subtitle2 border"
               >
-                <p>Name:{{ Task.task }}</p>
+                
                 <router-link :to="`/task/${Task._id}`">
                   <p>
                     {{ Task.task }}
@@ -150,7 +150,8 @@
                   <!-- <button @click="EditTask(Task.value._id)">Edit Task</button> -->
                 </router-link>
                 <button @click="DeleteTask(Task._id)">Delete Task</button>
-                <!-- <p>Decription: {{ Task.description }}</p>
+                <!--<p>Name:{{ Task.task }}</p> 
+                <p>Decription: {{ Task.description }}</p>
                 <p>Deadline: {{ Task.deadline }}</p>
                 <p>Status: {{ Task.status }}</p>
                 <p>Optional?: {{ Task.is_optional }}</p> -->
