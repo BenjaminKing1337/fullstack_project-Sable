@@ -5,14 +5,11 @@ import baseUrl from './baseUrl';
 const GetProjects = () => {
   const Route = useRoute();
   const Router = useRouter();
-  
   const ProjectId = computed(() => Route.params.id);
-  // console.log("projectId: ", ProjectId);
 
   const pState = ref({
     NewName: "",
     NewDescription: "",
-    NewStatus: "",
     NewDeadline: "",
     NewColor: "#fd9f28",
     Projects: {},
@@ -29,6 +26,7 @@ const GetProjects = () => {
       console.log(Error);
     }
   };
+  
   const GetUserProjects = async () => {
     try {
       await fetch(baseUrl + "/projects/get/" + localStorage.getItem('userid'))
@@ -46,13 +44,11 @@ const GetProjects = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
         UserId: localStorage.getItem('userid'),
         name: pState.value.NewName,
         description: pState.value.NewDescription,
-        status: pState.value.NewStatus,
         deadline: pState.value.NewDeadline,
         color: pState.value.NewColor,
       }),
@@ -75,21 +71,16 @@ const GetProjects = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
         name: pState.value.NewName,
         description: pState.value.NewDescription,
-        status: pState.value.NewStatus,
         deadline: pState.value.NewDeadline,
         color: pState.value.NewColor,
       }),
     };
     fetch(baseUrl + "/projects/update/" + ProjectId.value, RequestOptions)
       .then((Res) => Res.body)
-      // .then((Res) => {
-      //   console.log(Res);
-      // });
     Router.push("/projects");
   };
 

@@ -64,7 +64,11 @@
                         />
                       </q-item-section>
                     </q-item>
-                    <q-item clickable @click="DeleteProject(Project._id)" class="bg-negative">
+                    <q-item
+                      clickable
+                      @click="DeleteProject(Project._id)"
+                      class="bg-negative"
+                    >
                       <q-item-section class="text-white text-weight-bold"
                         >Delete</q-item-section
                       >
@@ -81,12 +85,10 @@
             {{ Project.deadline }}
           </div>
         </q-card-section>
-        <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
         <router-link :to="`/workspace/${Project._id}`" class="remove_linkStyle">
           <q-btn class="full-width">
             <strong v-bind:style="{ color: Project.color }">Open</strong>
           </q-btn>
-          <!-- <p align="center" active clickable v-ripple>Open</p> -->
         </router-link>
       </q-card>
     </div>
@@ -153,102 +155,31 @@
 
 <script>
 import Projectcrud from "../modules/projectcrud";
-import Listcrud from "../modules/listcrud";
 import { onMounted } from "vue";
 
 export default {
   setup() {
     const { pState, GetUserProjects, NewProject, DeleteProject, EditProject } =
       Projectcrud();
-    const {
-      lState,
-      GetAllLists,
-      NewList,
-      DeleteList,
-      EditList,
-      GetAllListsFromProject,
-    } = Listcrud();
 
     const userId = localStorage.getItem("userid");
 
-    let filterLists = (Lists, projectId) => {
-      let listsFiltered = [];
-      for (var i = 0; i < Lists.length; i++) {
-        if (Lists[i].ProjectId == projectId) {
-          listsFiltered.push(Lists[i]);
-        }
-      }
-      return listsFiltered;
-    };
-    /*     let filterProjects = (Projects, userId) => {
-      let projectsFiltered = [];
-      for (var i = 0; i < Projects.length; i++) {
-        if (Projects[i].UserId == userId) {
-          projectsFiltered.push(Projects[i]);
-        }
-      }
-      return projectsFiltered;
-    }; */
-
     onMounted(() => {
       GetUserProjects();
-      GetAllLists();
     });
 
-    // GetAll();
     return {
-      lState,
-      GetAllLists,
-      NewList,
-      DeleteList,
-      EditList,
-      GetAllListsFromProject,
       pState,
       GetUserProjects,
       NewProject,
       DeleteProject,
       EditProject,
-      filterLists,
       userId,
     };
   },
   data() {
     return {
-      projects: [
-        {
-          title: "My planet",
-          description: "this a description",
-          color: "purple",
-        },
-        { title: "My world", description: "this a description", color: "blue" },
-        {
-          title: "My plan",
-          description: "this a description",
-          color: "purple",
-        },
-        {
-          title: "My vingardium leviosa",
-          description: "this a description",
-          color: "#ffff00",
-        },
-        {
-          title: "Me running out of ideas",
-          description: "this a description",
-          color: "red",
-        },
-        {
-          title: "Lorem Ipsum",
-          description: "this a description",
-          color: "purple",
-        },
-        {
-          title: "My Ipsum Lorem beef patty with sauted onions yumm yumm",
-          description: "this a description",
-          color: "purple",
-        },
-      ],
       prompt: false,
-      hex: "#FF00FF",
     };
   },
 };
@@ -269,14 +200,8 @@ export default {
     }
   }
 }
-.textShadow {
-  text-shadow: 1px 1px 4px rgb(43, 40, 40);
-}
 .btn-fixed-width {
   width: 400px;
-}
-.my-picker {
-  max-width: 280px;
 }
 .remove_linkStyle {
   text-decoration: none;

@@ -1,8 +1,6 @@
+// What the Task can send to the db
 const Mongoose = require("mongoose");
-
 const Schema = Mongoose.Schema;
-
-
 let UserSchema = new Schema(
     {
         name: {

@@ -9,7 +9,7 @@ const {
   LoginValidation,
   VerifyToken,
 } = require("../validation");
-const { Application } = require("express");
+// const { Application } = require("express");
 // ROUTE - /registration
 Router.post("/register", async (req, res) => {
   // validate user input
@@ -100,25 +100,6 @@ Router.post("/login", async (req, res) => {
   // return res.status(200).json({ msg: "Login route..." });
 });
 
-// LOGOUT USER
-/* Router.get('/logout', function(req, res) {
-  req.logout();
- res.status(200).json({
-  status: 'Bye!'
- });
-}); */
-
-
-// // ROUTE - / Read all Users - GET - with map operator
-// router.get("/", (req, res) => {
-//     User.find()
-//         .then(Data => {
-//             res.send(mapArray(Data));
-//         })
-//         .catch(err => { res.status(500).send({ message: err.message }); })
-// }
-// );
-
 // Read all users - GET
 Router.get("/", (req, res) => {
   User.find()
@@ -141,19 +122,5 @@ Router.get("/user", VerifyToken, (req, res) => {
     });
 });
 
-// mapping as a function useable in multiple routes.
-function mapArray(Object) {
-  let OutputArr = Object.map((Element) => ({
-    id: Element._id,
-    name: Element.name,
-    email: Element.email,
-    pass: Element.pass,
-    date: Element.date,
-    // link url
-    uri: `/api/users/${Element._id}`,
-    // uri2:"/api/users/" + element._id
-  }));
-  return OutputArr;
-}
 // modular exportation
 module.exports = Router;

@@ -2,7 +2,7 @@
 const Joi = require('joi');
 //jsonwebtoken import
 const Jwt = require('jsonwebtoken');
-// register validation
+// Register Validation
 const RegisterValidation = (data) => {
     delete data.pass_confirm;
     const Schema = Joi.object(
@@ -13,7 +13,7 @@ const RegisterValidation = (data) => {
         });
         return Schema.validate(data);
     }    
-// login validation
+// Login Validation
 const LoginValidation = (data) => {
     const Schema = Joi.object(
         {

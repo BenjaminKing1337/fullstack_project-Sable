@@ -5,16 +5,14 @@ import baseUrl from './baseUrl';
 const GetUsers = () => {
   const Route = useRoute();
   const Router = useRouter();
-
   const UserId = computed(() => Route.params.id);
-  // console.log("userId: ", UserId);
 
   const uState = ref({
     newName: "",
     newPass: "",
-    newUserLevel: "",
     Users: {},
   });
+  
   const GetAllUsers = async () => {
     try {
       await fetch(baseUrl + "/users")
@@ -28,22 +26,23 @@ const GetUsers = () => {
     }
   };
 
-  // const NewUser = () => {
-  //   const RequestOptions = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       // "auth-token": state.token
-  //     },
-  //     body: JSON.stringify({
-  //       author: uState.value.NewAuthor,
-  //       Task: uState.value.NewTaskItem,
-  //     }),
-  //   };
-  //   fetch(baseUrl + /tasks/new", RequestOptions).then(() => {
-  //     GetAllTasks(); // Updates page
-  //   });
-  // };
+  const NewUser = () => {
+    const RequestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "auth-token": state.token
+      },
+      body: JSON.stringify({
+        name: uState.value.newName,
+        pass: uState.value.newPass,
+        userLevel: uState.value.newUserLevel,
+      }),
+    };
+    fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
+      GetAllUsers(); // Updates page
+    });
+  };
 
   const DeleteUser = (_id) => {
     fetch(baseUrl + "/users/delete/" + _id, {
@@ -93,7 +92,7 @@ const GetUsers = () => {
     GetSpecificUser,
     uState,
     GetAllUsers,
-    // NewUser,
+    NewUser,
     DeleteUser,
     EditUser,
   };

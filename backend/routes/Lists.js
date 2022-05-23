@@ -21,15 +21,7 @@ Router.post("/new", async (Req, Res) => {
   }
 });
 
-// Get List by id route
-// Router.get("/get/:id", async (Req, Res) => {
-//   try {
-//     const IdList = await List.findById({ _id: Req.params.id });
-//     Res.json(IdList);
-//   } catch (fish) {
-//     Res.status(400).json({ fish });
-//   }
-// });
+// Get List by Project id route
 Router.get("/get/:id", async (Req, Res) => {
   try {
     const IdList = await List.find({ ProjectId: Req.params.id });

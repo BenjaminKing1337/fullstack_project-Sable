@@ -76,10 +76,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form{
-  width: clamp(315px, 25vw, 600px);
-}
-
 .myOrange{
     background-color: map-get($cs, 4) !important;
     color:white;

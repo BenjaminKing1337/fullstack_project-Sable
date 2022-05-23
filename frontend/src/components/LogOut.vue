@@ -1,11 +1,9 @@
 <template>
   <q-page class="flex column flex-center">
     <img alt="Quasar logo" src="../assets/logo.png" style="width: 200px; height: 200px">
-    <h2 class="text-center">See ya later alligator</h2>
+    <h2 class="text-center">See ya later Alligator</h2>
     <div class="flex">
-      
     <q-btn class="q-mr-xs q-px-xl" label="Log Out" @click="onLogout()" outline color="orange" />
-      
     </div>
   </q-page>
 </template>

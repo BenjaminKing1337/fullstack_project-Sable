@@ -33,6 +33,10 @@ $cs: (
   max-width: 280px;
 }
 
+.form {
+  width: clamp(315px, 25vw, 600px);
+}
+
 .sablebgcolor {
   background-color: map-get($cs, 3) !important;
 }

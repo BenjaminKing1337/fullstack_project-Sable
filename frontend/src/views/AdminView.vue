@@ -4,21 +4,17 @@
     <div class="tasklist">
       <div v-for="User in uState.Users" :key="User._id" class="Useritem">
         <h4>
-          {{ User.name }}
+          Name: <strong style="color: orange">{{ User.name }}</strong>
         </h4>
         <p>
-          {{ User.email }}
+          Email: <strong>{{ User.email }}</strong>
         </p>
         <p>
-          {{ User.date }}
+          Joined: <strong>{{ User.date }}</strong>
         </p>
         <p>
-          {{ User.userLevel }}
+          Level: <strong>{{ User.userLevel }}</strong>
         </p>
-        <!-- <router-link :to="`/user/${User._id}`">
-          <button @click="EditUser(User.value._id)">Edit User</button>
-        </router-link>
-        <button @click="DeleteUser(User._id)">Delete User</button> -->
       </div>
     </div>
   </q-page>
@@ -50,8 +46,9 @@ export default {
 <style lang="scss" scoped>
 .Useritem {
   margin: 1%;
-  padding: 1%;
-  border: 1px black dotted;
+  padding: 2%;
+  border: 0.2em map-get($cs, 4);
   border-radius: 5px;
+  border-style: dotted;
 }
 </style>

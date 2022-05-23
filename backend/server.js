@@ -1,22 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-// create out express app
+// create our express app
 const app = express();
 
-
-
-// UNCOMMENT WHEN SWAGGER AND YAML HAS BEEN INSTALLED AND SETUP
 // swagger deps
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('yamljs');
+
 // setup swagger
 const swaggerDefinition = yaml.load('./swagger.yaml');
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // dot-env dep
 require("dotenv-flow").config();
-
 
 // Handle CORS + middleware
 app.use((req, res, next) => {
@@ -45,12 +42,6 @@ mongoose.connection.once("open", () =>
 
 app.use(bodyParser.json());
 
-// _ROUTES_ //
-// standard GET
-// app.get("/", (res, req) => {
-//   res.send("yay homepage");
-// });
-
 // Import project routes
 const ProjectsRoute = require("./routes/Projects");
 app.use("/projects", ProjectsRoute);
@@ -64,6 +55,7 @@ app.use("/tasks", TasksRoute);
 const UserRoute = require("./routes/Users");
 app.use("/users", UserRoute);
 
+// use jason 
 app.use(express.json());
 
 

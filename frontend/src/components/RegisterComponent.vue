@@ -69,7 +69,6 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import Usercrud from "../modules/usercrud";
 
-// import { onMounted } from "vue";
 
 export default {
   name: "RegisterComponent",
@@ -82,12 +81,10 @@ export default {
     const pass = ref(null);
     const accept = ref(false);
     const router = useRouter();
-    const { uState, GetAllUsers, /* NewUser, */ DeleteUser, EditUser } =
+    const { uState, GetAllUsers } =
       Usercrud();
 
-    // onMounted(() => {
-    //   GetAllUsers();
-    // });
+    
 
     return {
       name,
@@ -96,9 +93,6 @@ export default {
       accept,
       uState,
       GetAllUsers,
-      // NewUser,
-      DeleteUser,
-      EditUser,
 
       async created() {
         try {
@@ -132,7 +126,6 @@ export default {
               message: "Submitted",
             });
           } catch (err) {
-            // console.log(err.response.data);
             let msg = err.response.data.error;
             $q.notify({
               color: "negative",
@@ -156,10 +149,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-  width: clamp(315px, 25vw, 600px);
-}
-
 .myOrange {
   background-color: map-get($cs, 4) !important;
   color: white;

@@ -8,9 +8,8 @@ const GetLists = () => {
   const Router = useRouter();
   const { pState, ProjectId } = Projectcrud;
   const ListId = computed(() => Route.params.id);
-  // const ListTitle = computed(() => Route.params.id);
-  // console.log("listId: ", ListId);
-
+ 
+  // Gets id from url
   var url = window.location.pathname.split("/");
   var url_id = url[2];
 
@@ -21,6 +20,7 @@ const GetLists = () => {
     ProjectId: "",
     Lists: {},
   });
+  
   const GetAllLists = async () => {
     try {
       await fetch(baseUrl + "/lists")
@@ -32,6 +32,7 @@ const GetLists = () => {
       console.log(Error);
     }
   };
+
   const GetAllListsFromProject = async () => {
     try {
       await fetch(baseUrl + "/lists/get/" + url_id)
@@ -49,11 +50,9 @@ const GetLists = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
         ProjectId: url_id,
-        // ProjectId: lState.value.ProjectId,
         title: lState.value.NewTitle,
         color: lState.value.NewColor,
         is_Complete: lState.value.NewIs_Complete,
@@ -77,7 +76,6 @@ const GetLists = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
         title: lState.value.NewTitle,
@@ -87,9 +85,6 @@ const GetLists = () => {
     };
     fetch(baseUrl + "/lists/update/" + ListId.value, RequestOptions)
       .then((Res) => Res.body)
-      // .then((Res) => {
-      //   console.log(Res);
-      // });
     Router.go(-1);
   };
 

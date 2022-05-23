@@ -1,14 +1,14 @@
-// What the user can send to the db
-const { string } = require("joi");
+// What the Project can send to the db
 const Mongoose = require("mongoose");
 const ProjectsSchema = new Mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  status: Number,
   color: String,
-  created_at: String,
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
   deadline: String,
-  progression: String,
   UserId: String,
 });
 

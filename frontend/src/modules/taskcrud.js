@@ -9,7 +9,6 @@ const GetTasks = () => {
   const Router = useRouter();
   const { lState } = Listcrud;
   const TaskId = computed(() => Route.params.id);
-  // console.log("taskId: ", TaskId);
 
   const tState = ref({
     NewAuthor: localStorage.getItem("name"),
@@ -40,7 +39,6 @@ const GetTasks = () => {
       const test = await fetch(baseUrl + "/tasks/get/byList/" + listId)
         .then((Res) => Res.json())
         .then((Data) => {
-          debugger
           tState.value.Tasks = Data;
         });
         return test;
@@ -54,10 +52,8 @@ const GetTasks = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
-        // ListId: tState.value.ListId,
         UserId: localStorage.getItem("userid"),
         ListId: listId,
         author: tState.value.NewAuthor ? tState.value.NewAuthor : LocalStorage.getItem("name"),
@@ -88,7 +84,6 @@ const GetTasks = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // "auth-token": state.token
       },
       body: JSON.stringify({
         UserId: localStorage.getItem("userid"),
@@ -102,9 +97,6 @@ const GetTasks = () => {
     };
     fetch(baseUrl + "/tasks/update/" + TaskId.value, RequestOptions)
       .then((Res) => Res.body)
-      // .then((Res) => {
-      //   console.log(Res);
-      // });
     Router.go(-1);
   };
 

@@ -21,12 +21,13 @@
         </q-card-section>
 
         <q-card-section class="flex q-mb-sm">
-          <h6>Is Optional?:</h6>&nbsp;&nbsp;
+          <h6>Is Optional?:</h6>
+          &nbsp;&nbsp;
           <div v-if="Item.is_optional === false">
-          <h6 style="color: red;">No</h6>
+            <h6 style="color: red">No</h6>
           </div>
           <div v-if="Item.is_optional === true">
-          <h6 style="color: green;">Yes</h6>
+            <h6 style="color: green">Yes</h6>
           </div>
         </q-card-section>
       </q-card>
@@ -38,7 +39,6 @@
           <div v-if="adminAuth()">
             <p>New Task Owner</p>
             <select v-model="tState.NewAuthor">
-              <!-- <select v-model="Task[0].author"> -->
               <option
                 v-for="User in uState.Users"
                 :key="User._id"
@@ -97,7 +97,7 @@
               />
             </div>
             <input
-            style="width:20px; height:20px"
+              style="width: 20px; height: 20px"
               type="checkbox"
               placeholder="Is Optional?"
               v-model="tState.NewIs_Optional"
@@ -122,54 +122,6 @@
         </q-card-section>
       </q-card>
     </div>
-    <!--
-    <div v-for="Item in Task" :key="Item._id">
-      Author:
-      <h4>{{ Item.author }}</h4>
-      Task:
-      <p>{{ Item.task }}</p>
-      Description:
-      <p>{{ Item.description }}</p>
-      Deadline:
-      <p>{{ Item.deadline }}</p>
-      Status:
-      <p>{{ Item.status }}</p>
-      Optional:
-      <p>{{ Item.is_optional }}</p>
-    </div>
-
-    <hr />
-
-     <input type="text" placeholder="Author" v-model="tState.NewAuthor" />
-    <span> Author : {{ tState.NewAuthor }} </span>
-    <br />
-    <input type="text" placeholder="Task" v-model="tState.NewTaskItem" />
-    <span> Task : {{ tState.NewTaskItem }} </span>
-    <br />
-    <input
-      type="text"
-      placeholder="Description"
-      v-model="tState.NewDescription"
-    />
-    <span> Description : {{ tState.NewDescription }} </span>
-    <br />
-    <input type="date" placeholder="Deadline" v-model="tState.NewDeadline" />
-    <span> Deadline : {{ tState.NewDeadline }} </span>
-    <br />
-    <input type="number" placeholder="Status" v-model="tState.NewStatus" />
-    <span> Status : {{ tState.NewStatus }} </span>
-    <br />
-    Optional:
-    <input
-      type="checkbox"
-      placeholder="Optional"
-      v-model="tState.NewIs_Optional"
-    />
-    <span> Optional : {{ tState.NewIs_Optional }} </span>
-    <br />
-    <button @click="EditTask()">Update Task</button>
-
-    <hr /> -->
   </q-page>
 </template>
 
@@ -213,7 +165,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-  width: clamp(315px, 25vw, 600px);
-}
 </style>

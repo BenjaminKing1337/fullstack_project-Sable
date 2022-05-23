@@ -1,14 +1,21 @@
 <template>
   <q-page class="q-pa-xl page">
     <h5>Workspace</h5>
+    <!-- // LIST DISPLAY  -->
     <div class="flex no-wrap q-mb-md q-pb-md" style="overflow-x: auto">
-      <!-- LIST LOOP  -->
-      <q-card v-bind:style="{ border: '1px solid' + List.color }" class="my-card" v-for="List in lState.Lists" :key="List._id">
-        <q-card-section 
-        style="margin: -1px;"
+      <!-- LIST LOOP with nested TASK LOOP -->
+      <q-card
+        v-bind:style="{ border: '1px solid' + List.color }"
+        class="my-card"
+        v-for="List in lState.Lists"
+        :key="List._id"
+      >
+        <q-card-section
+          style="margin: -1px"
           class="text-white title_sec"
-          v-bind:style="{ backgroundColor: List.color}"
+          v-bind:style="{ backgroundColor: List.color }"
         >
+          <!-- title fetched from db  -->
           <div class="row no-wrap items-center">
             <div class="col">
               <div class="text-h6 line-adjust ellipsis textShadow">
@@ -23,9 +30,15 @@
                 </q-tooltip>
               </div>
             </div>
-            
+
             <div class="col-auto">
-              <q-btn style="margin-right: -24px;" color="white" round flat icon="more_vert">
+              <q-btn
+                style="margin-right: -24px"
+                color="white"
+                round
+                flat
+                icon="more_vert"
+              >
                 <q-menu
                   class="overflow-hidden"
                   anchor="center right"
@@ -46,12 +59,12 @@
                         />
                       </q-item-section>
                     </q-item>
-                    <q-item 
+                    <q-item
                       clickable
                       @click="DeleteList(List._id)"
                       class="bg-negative"
                     >
-                      <q-item-section  class="text-white text-weight-bold"
+                      <q-item-section class="text-white text-weight-bold"
                         >Delete</q-item-section
                       >
                       <q-item-section class="flex">
@@ -63,7 +76,7 @@
               </q-btn>
             </div>
             <q-icon
-            v-bind:style="'margin-top: -40px; margin-right: -10px;'"
+              v-bind:style="'margin-top: -40px; margin-right: -10px;'"
               class="list_status"
               name="check_circle"
               size="2em"
@@ -74,6 +87,7 @@
             />
           </div>
         </q-card-section>
+        <!-- // TASK DISPLAY inside the List -->
         <q-card-section class="card_sec">
           <q-list class="list_sec">
             <!-- TASK LOOP -->
@@ -126,24 +140,23 @@
                       <div class="text-black">
                         Status:
                         <div v-if="Task.status === 'not-done'">
-                        <p style="color: white;">Not done</p>
+                          <p style="color: white">Not done</p>
                         </div>
                         <div v-if="Task.status === 'pending'">
-                        <p style="color: white;">Pending</p>
+                          <p style="color: white">Pending</p>
                         </div>
                         <div v-if="Task.status === 'done'">
-                        <p style="color: white;">Done</p>
+                          <p style="color: white">Done</p>
                         </div>
                       </div>
                       <div class="text-black">
                         Optional?:
                         <div v-if="Task.is_optional === false">
-                        <h6 style="color: red;">No</h6>
+                          <h6 style="color: red">No</h6>
                         </div>
                         <div v-if="Task.is_optional === true">
-                        <h6 style="color: green;">Yes</h6>
+                          <h6 style="color: green">Yes</h6>
                         </div>
-
                       </div>
                     </div>
                   </q-tooltip>
@@ -158,9 +171,9 @@
                   </q-tooltip>
                 </router-link>
               </q-item-section>
-              <q-item-section  side>
-                <q-btn 
-                  style="margin-right: 5px;"  
+              <q-item-section side>
+                <q-btn
+                  style="margin-right: 5px"
                   @click="DeleteTask(Task._id)"
                   class="gt-xs"
                   size="12px"
@@ -169,7 +182,7 @@
                 />
               </q-item-section>
             </q-item>
-
+            <!-- ADD TASK  -->
             <div class="flex q-pb-sm q-pt-sm add_task">
               <q-input
                 v-model="tState.NewTaskItem"
@@ -180,19 +193,24 @@
                 filled
                 placeholder="Add task"
               />
-              <q-btn class="btn_style circlebg" style="color: #f5f5f5" @click="NewTask(List._id)">
-                <q-icon v-bind:style="{ color: List.color }"  name="add" />
+              <q-btn
+                class="btn_style circlebg"
+                style="color: #f5f5f5"
+                @click="NewTask(List._id)"
+              >
+                <q-icon v-bind:style="{ color: List.color }" name="add" />
               </q-btn>
             </div>
           </q-list>
         </q-card-section>
       </q-card>
     </div>
+    <!-- ADD NEW LIST BUTTON  -->
     <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
       <q-icon name="add" />
       Add List
     </q-btn>
-    <!-- ADD NEW LIST -->
+    <!-- ADD NEW LIST POPUP (hidden by default)-->
     <q-dialog
       v-model="prompt"
       persistent
@@ -236,15 +254,12 @@
 </template>
 
 <script>
-import Projectcrud from "../modules/projectcrud";
 import Listcrud from "../modules/listcrud";
 import Taskcrud from "../modules/taskcrud";
 import { onMounted } from "vue";
 
 export default {
   setup() {
-    const { pState, GetAllProjects, NewProject, DeleteProject, EditProject } =
-      Projectcrud();
     const {
       lState,
       GetAllLists,
@@ -253,14 +268,7 @@ export default {
       EditList,
       GetAllListsFromProject,
     } = Listcrud();
-    const {
-      tState,
-      GetAllTasks,
-      // GetAllTasksByListId,
-      NewTask,
-      DeleteTask,
-      EditTask,
-    } = Taskcrud();
+    const { tState, GetAllTasks, NewTask, DeleteTask, EditTask } = Taskcrud();
 
     let filterTasks = (Tasks, listId) => {
       let tasksFiltered = [];
@@ -273,17 +281,11 @@ export default {
     };
 
     onMounted(() => {
-      GetAllProjects();
       GetAllListsFromProject();
       GetAllTasks();
     });
 
     return {
-      pState,
-      GetAllProjects,
-      NewProject,
-      DeleteProject,
-      EditProject,
       lState,
       GetAllLists,
       NewList,
@@ -389,8 +391,5 @@ export default {
 }
 .q-item {
   margin: 0;
-}
-.my-picker {
-  max-width: 280px;
 }
 </style>

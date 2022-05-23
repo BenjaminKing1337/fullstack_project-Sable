@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SableWelcome/>
+    <SableWelcome />
   </div>
 </template>
 
@@ -13,14 +13,5 @@ export default {
   components: {
     SableWelcome,
   },
-
-  // async created() {
-  //  /*  const response = */ await axios.get("users/user", {
-  //     headers: { 'auth-token': localStorage.getItem("Token"),
-  //     },
-  //   });
-
-  //   // console.log(response);
-  // },
 };
 </script>
