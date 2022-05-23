@@ -9,7 +9,7 @@ const GetLists = () => {
   const { pState, ProjectId } = Projectcrud;
   const ListId = computed(() => Route.params.id);
   // const ListTitle = computed(() => Route.params.id);
-  console.log("listId: ", ListId);
+  // console.log("listId: ", ListId);
 
   var url = window.location.pathname.split("/");
   var url_id = url[2];

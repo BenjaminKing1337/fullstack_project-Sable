@@ -16,6 +16,6 @@ npm run start-dev
 
 ### LIVE
 
-www.sable.netlify.com
+https://www.sable.netlify.com
 
-www.sableplan.herokuapp.com
+https://www.sableplan.herokuapp.com

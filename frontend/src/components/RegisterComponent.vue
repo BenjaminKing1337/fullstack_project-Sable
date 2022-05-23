@@ -124,7 +124,7 @@ export default {
               email: email.value,
               pass: pass.value,
             });
-            router.push("/");
+            router.push("/login");
             $q.notify({
               color: "green-4",
               textColor: "white",
@@ -132,7 +132,7 @@ export default {
               message: "Submitted",
             });
           } catch (err) {
-            console.log(err.response.data);
+            // console.log(err.response.data);
             let msg = err.response.data.error;
             $q.notify({
               color: "negative",
