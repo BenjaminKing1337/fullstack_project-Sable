@@ -12,7 +12,7 @@ const GetTasks = () => {
   // console.log("taskId: ", TaskId);
 
   const tState = ref({
-    NewAuthor: "",
+    NewAuthor: localStorage.getItem("name"),
     NewDescription: "",
     NewStatus: "not-done",
     NewIs_Optional: "",

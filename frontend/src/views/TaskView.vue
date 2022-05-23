@@ -33,6 +33,7 @@
           <div v-if="adminAuth()">
             <p>New Task Owner</p>
             <select v-model="tState.NewAuthor">
+            <!-- <select v-model="Task[0].author"> -->
               <option
                 v-for="User in uState.Users"
                 :key="User._id"
@@ -153,8 +154,8 @@ import Usercrud from "../modules/usercrud";
 export default {
   setup() {
     const { EditTask, tState, GetSpecificTask, Task, TaskId } = Taskcrud();
-    const { EditUser, uState, GetAllUsers, GetSpecificUser, User, UserId } =
-      Usercrud();
+    const { EditUser, uState, GetAllUsers, GetSpecificUser, User, UserId } = Usercrud();
+    
 
     GetSpecificTask();
     GetSpecificUser();

@@ -261,6 +261,7 @@ export default {
       return tasksFiltered;
     };
 
+
     onMounted(() => {
       GetAllProjects();
       GetAllListsFromProject();
