@@ -8,7 +8,7 @@
             class="text-white title_sec"
             v-bind:style="{ backgroundColor: List.color }"
           >
-            <div class="row no-wrap">
+            <div class="row no-wrap items-center">
               <div class="col">
                 <div class="text-h6 line-adjust ellipsis textShadow">
                   {{ List.title }}
@@ -22,7 +22,15 @@
                   </q-tooltip>
                 </div>
               </div>
-
+              <q-icon 
+                class="list_status" 
+                name="check_circle"
+                size="2em" 
+                :class="{
+                  'complete': List.is_Complete === true,
+                  'not_complete': List.is_Complete === false,
+                }" 
+              />
               <div class="col-auto">
                 <q-btn color="white" round flat icon="more_vert">
                   <q-menu
@@ -236,6 +244,20 @@ export default {
     .line-adjust {
       line-height: 1.6rem;
       padding: 10px 0 0 15px;
+    }
+    .list_status{
+      height: 100%;
+      visibility: hidden;
+      i{
+        padding: 0 !important;
+      }
+    }
+    .complete{
+      visibility: visible;
+      color: limegreen;
+    }
+    .not-complete{
+      visibility: hidden;
     }
   }
   .card_sec {
