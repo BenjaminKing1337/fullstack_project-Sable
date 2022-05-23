@@ -206,10 +206,45 @@
       </q-card>
     </div>
     <!-- ADD NEW LIST BUTTON  -->
-    <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
-      <q-icon name="add" />
-      Add List
-    </q-btn>
+    <div class="flex col flexstart">
+      <q-btn
+        class="q-pa-xs myOrange text-white"
+        style="max-width: 200px"
+        @click="prompt = true"
+      >
+        <div class="flex">
+          <q-icon name="add" /> &nbsp;&nbsp;
+          <p style="margin: 0">Add List</p>
+          &nbsp;
+        </div>
+      </q-btn>
+      <br />
+      <q-btn
+        style="max-width: 200px"
+        type="submit"
+        @click="goBack()"
+        class="q-pa-xs myOrange text-white"
+      >
+        <div class="flex">
+          <q-icon name="keyboard_return" /> &nbsp;&nbsp;
+          <p style="margin: 0">View Projects</p>
+          &nbsp;
+        </div>
+      </q-btn>
+      <br />
+      <q-btn
+        style="max-width: 200px"
+        type="submit"
+        @click="refresh()"
+        class="q-pa-xs myOrange text-white"
+      >
+        <div class="flex">
+          <q-icon name="refresh" /> &nbsp;&nbsp;
+          <p style="margin: 0">Refresh tasks</p>
+          &nbsp;
+        </div>
+      </q-btn>
+    </div>
     <!-- ADD NEW LIST POPUP (hidden by default)-->
     <q-dialog
       v-model="prompt"
@@ -257,6 +292,7 @@
 import Listcrud from "../modules/listcrud";
 import Taskcrud from "../modules/taskcrud";
 import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
@@ -269,6 +305,7 @@ export default {
       GetAllListsFromProject,
     } = Listcrud();
     const { tState, GetAllTasks, NewTask, DeleteTask, EditTask } = Taskcrud();
+    const Router = useRouter();
 
     let filterTasks = (Tasks, listId) => {
       let tasksFiltered = [];
@@ -298,6 +335,12 @@ export default {
       DeleteTask,
       EditTask,
       filterTasks,
+      goBack() {
+        return Router.go(-1);
+      },
+      refresh() {
+        return Router.go();
+      },
     };
   },
   data() {

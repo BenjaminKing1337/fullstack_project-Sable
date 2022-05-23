@@ -77,6 +77,9 @@ $cs: (
 .flex {
   display: flex;
 }
+.col {
+  flex-direction: column;
+}
 .row {
   flex-direction: row;
 }
@@ -90,6 +93,10 @@ $cs: (
 
 .flexend {
   justify-self: flex-end;
+}
+
+.flexstart {
+  align-items: flex-start;
 }
 
 .alignc {

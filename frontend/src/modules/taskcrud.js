@@ -1,8 +1,8 @@
 import { LocalStorage } from "quasar";
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import baseUrl from './baseUrl';
-import Listcrud from './listcrud';
+import baseUrl from "./baseUrl";
+import Listcrud from "./listcrud";
 
 const GetTasks = () => {
   const Route = useRoute();
@@ -41,7 +41,7 @@ const GetTasks = () => {
         .then((Data) => {
           tState.value.Tasks = Data;
         });
-        return test;
+      return test;
     } catch (Error) {
       console.log(Error);
     }
@@ -56,16 +56,22 @@ const GetTasks = () => {
       body: JSON.stringify({
         UserId: localStorage.getItem("userid"),
         ListId: listId,
-        author: tState.value.NewAuthor ? tState.value.NewAuthor : LocalStorage.getItem("name"),
+        author: tState.value.NewAuthor
+          ? tState.value.NewAuthor
+          : LocalStorage.getItem("name"),
         task: tState.value.NewTaskItem,
-        description: tState.value.NewDescription ? tState.value.NewDescription : '',
+        description: tState.value.NewDescription
+          ? tState.value.NewDescription
+          : "",
         status: tState.value.NewStatus ? tState.value.NewStatus : "not-done",
-        is_optional: tState.value.NewIs_Optional ? tState.value.NewIs_Optional : false,
+        is_optional: tState.value.NewIs_Optional
+          ? tState.value.NewIs_Optional
+          : false,
         deadline: tState.value.NewDeadline,
       }),
     };
     // console.log(RequestOptions.body)
-    tState.value.NewTaskItem = ""
+    tState.value.NewTaskItem = "";
     fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
     });
@@ -87,17 +93,24 @@ const GetTasks = () => {
       },
       body: JSON.stringify({
         UserId: localStorage.getItem("userid"),
-        author: tState.value.NewAuthor ? tState.value.NewAuthor : '',
+        author: tState.value.NewAuthor ? tState.value.NewAuthor : "",
         task: tState.value.NewTaskItem,
-        description: tState.value.NewDescription ? tState.value.NewDescription : '',
+        description: tState.value.NewDescription
+          ? tState.value.NewDescription
+          : "",
         status: tState.value.NewStatus ? tState.value.NewStatus : 1,
-        is_optional: tState.value.NewIs_Optional ? tState.value.NewIs_Optional : false,
+        is_optional: tState.value.NewIs_Optional
+          ? tState.value.NewIs_Optional
+          : false,
         deadline: tState.value.NewDeadline,
       }),
     };
     fetch(baseUrl + "/tasks/update/" + TaskId.value, RequestOptions)
       .then((Res) => Res.body)
-    Router.go(-1);
+      .then(Router.go(-1))
+      .then(() => {
+        return Router.go();
+      });
   };
 
   const Task = ref({});
