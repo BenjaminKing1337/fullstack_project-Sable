@@ -64,7 +64,7 @@
                         />
                       </q-item-section>
                     </q-item>
-                    <q-item clickable class="bg-negative">
+                    <q-item clickable @click="DeleteProject(Project._id)" class="bg-negative">
                       <q-item-section class="text-white text-weight-bold"
                         >Delete</q-item-section
                       >
