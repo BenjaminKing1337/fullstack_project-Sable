@@ -6,7 +6,11 @@
         <h4>Create New Task</h4>
         Select List:
         <select v-model="tState.ListId" placeholder="List">
-          <option v-for="List in lState.Lists" :key="List._id" :value="List._id">
+          <option
+            v-for="List in lState.Lists"
+            :key="List._id"
+            :value="List._id"
+          >
             {{ List.title }}
           </option>
         </select>
@@ -31,6 +35,7 @@
         <br />
         Optional:
         <input
+          style="width: 20px; height: 20px"
           type="checkbox"
           placeholder="Optional"
           v-model="tState.NewIs_Optional"

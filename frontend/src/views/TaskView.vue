@@ -21,8 +21,13 @@
         </q-card-section>
 
         <q-card-section class="flex q-mb-sm">
-          <h6>Is Optional?:</h6>
-          <h6>{{ Item.is_optional }}</h6>
+          <h6>Is Optional?:</h6>&nbsp;&nbsp;
+          <div v-if="Item.is_optional === false">
+          <h6 style="color: red;">No</h6>
+          </div>
+          <div v-if="Item.is_optional === true">
+          <h6 style="color: green;">Yes</h6>
+          </div>
         </q-card-section>
       </q-card>
 
@@ -33,7 +38,7 @@
           <div v-if="adminAuth()">
             <p>New Task Owner</p>
             <select v-model="tState.NewAuthor">
-            <!-- <select v-model="Task[0].author"> -->
+              <!-- <select v-model="Task[0].author"> -->
               <option
                 v-for="User in uState.Users"
                 :key="User._id"
@@ -42,7 +47,7 @@
                 {{ User.name }}
               </option>
             </select>
-            <hr>
+            <hr />
           </div>
 
           <q-form @submit.prevent="EditTask">
@@ -80,17 +85,38 @@
             />
             <div class="column q-mb-lg">
               <q-radio v-model="tState.NewStatus" val="done" label="Done" />
-              <q-radio v-model="tState.NewStatus" val="pending" label="Pending" />
-              <q-radio v-model="tState.NewStatus" val="not-done" label="Not-done" />
+              <q-radio
+                v-model="tState.NewStatus"
+                val="pending"
+                label="Pending"
+              />
+              <q-radio
+                v-model="tState.NewStatus"
+                val="not-done"
+                label="Not-done"
+              />
             </div>
             <input
+            style="width:20px; height:20px"
               type="checkbox"
               placeholder="Is Optional?"
               v-model="tState.NewIs_Optional"
             />
             <span> Is Optional?</span>
             <hr />
-            <q-btn label="Update Task" type="submit" class="myOrange q-mt-lg text-white" />
+            <div class="flex spaceb">
+              <q-btn
+                label="Update Task"
+                type="submit"
+                class="myOrange q-mt-lg text-white"
+              />
+              <q-btn
+                label="Cancel"
+                type="submit"
+                @click="goBack()"
+                class="myOrange q-mt-lg text-white"
+              />
+            </div>
             <br />
           </q-form>
         </q-card-section>
@@ -150,12 +176,16 @@
 <script>
 import Taskcrud from "../modules/taskcrud";
 import Usercrud from "../modules/usercrud";
+// import goBack from '../modules/goBack';
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const { EditTask, tState, GetSpecificTask, Task, TaskId } = Taskcrud();
-    const { EditUser, uState, GetAllUsers, GetSpecificUser, User, UserId } = Usercrud();
-    
+    const { EditUser, uState, GetAllUsers, GetSpecificUser, User, UserId } =
+      Usercrud();
+
+    const Router = useRouter();
 
     GetSpecificTask();
     GetSpecificUser();
@@ -168,6 +198,9 @@ export default {
       tState,
       adminAuth() {
         return localStorage.getItem("level") === "admin";
+      },
+      goBack() {
+        return Router.go(-1);
       },
       EditUser,
       uState,

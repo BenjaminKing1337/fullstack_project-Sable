@@ -101,39 +101,46 @@
                     self="bottom middle"
                     :offset="[10, 10]"
                   >
-                    <div>
-                      
-                      <div class="text-black" style="max-width: 300px">
+                    <div class="taskcontent" style="max-width: 300px">
+                      <div class="text-black">
                         <h4 class="q-mb-none">
                           {{ Task.task }}
                         </h4>
-                        <p class="text-white">
-                          by {{ Task.author }}
-                        </p>
+                        <p class="text-white">by {{ Task.author }}</p>
                       </div>
-                      <div class="text-black" style="max-width: 300px">
+                      <div class="text-black">
                         Description:
                         <p class="text-white">
                           {{ Task.description }}
                         </p>
                       </div>
-                      <div class="text-black" style="max-width: 300px">
+                      <div class="text-black">
                         Deadline:
                         <p class="text-white">
                           {{ Task.deadline }}
                         </p>
                       </div>
-                      <div class="text-black" style="max-width: 300px">
+                      <div class="text-black">
                         Status:
-                        <p class="text-white">
-                          {{ Task.status }}
-                        </p>
+                        <div v-if="Task.status === 'not-done'">
+                        <p style="color: white;">Not done</p>
+                        </div>
+                        <div v-if="Task.status === 'pending'">
+                        <p style="color: white;">Pending</p>
+                        </div>
+                        <div v-if="Task.status === 'done'">
+                        <p style="color: white;">Done</p>
+                        </div>
                       </div>
-                      <div class="text-black" style="max-width: 300px">
+                      <div class="text-black">
                         Optional?:
-                        <p class="text-white">
-                          {{ Task.is_optional }}
-                        </p>
+                        <div v-if="Task.is_optional === false">
+                        <h6 style="color: red;">No</h6>
+                        </div>
+                        <div v-if="Task.is_optional === true">
+                        <h6 style="color: green;">Yes</h6>
+                        </div>
+
                       </div>
                     </div>
                   </q-tooltip>
@@ -144,7 +151,7 @@
                     self="bottom middle"
                     :offset="[10, 10]"
                   >
-                    <div>Click to add details</div>
+                    <div>Click to add details!</div>
                   </q-tooltip>
                 </router-link>
               </q-item-section>
@@ -261,7 +268,6 @@ export default {
       return tasksFiltered;
     };
 
-
     onMounted(() => {
       GetAllProjects();
       GetAllListsFromProject();
@@ -325,7 +331,7 @@ export default {
       visibility: visible;
       color: limegreen;
       background-color: white;
-      clip-path: circle(25% at 50% 50%);;
+      clip-path: circle(25% at 50% 50%);
     }
     .not-complete {
       visibility: hidden;

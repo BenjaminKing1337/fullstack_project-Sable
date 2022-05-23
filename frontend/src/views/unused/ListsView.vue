@@ -20,6 +20,7 @@
         Complete
         <input
           id="checkbox"
+          style="width:20px; height:20px"
           type="checkbox"
           checked="true"
           placeholder="Complete"
