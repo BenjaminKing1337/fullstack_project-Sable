@@ -324,6 +324,8 @@ export default {
     .complete {
       visibility: visible;
       color: limegreen;
+      background-color: white;
+      clip-path: circle(25% at 50% 50%);;
     }
     .not-complete {
       visibility: hidden;
