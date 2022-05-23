@@ -3,10 +3,11 @@
     <h5>Workspace</h5>
     <div class="flex no-wrap q-mb-md q-pb-md" style="overflow-x: auto">
       <!-- LIST LOOP  -->
-      <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
-        <q-card-section
+      <q-card v-bind:style="{ border: '1px solid' + List.color }" class="my-card" v-for="List in lState.Lists" :key="List._id">
+        <q-card-section 
+        style="margin: -1px;"
           class="text-white title_sec"
-          v-bind:style="{ backgroundColor: List.color }"
+          v-bind:style="{ backgroundColor: List.color}"
         >
           <div class="row no-wrap items-center">
             <div class="col">
@@ -22,17 +23,9 @@
                 </q-tooltip>
               </div>
             </div>
-            <q-icon
-              class="list_status"
-              name="check_circle"
-              size="2em"
-              :class="{
-                complete: List.is_Complete === true,
-                not_complete: List.is_Complete === false,
-              }"
-            />
+            
             <div class="col-auto">
-              <q-btn color="white" round flat icon="more_vert">
+              <q-btn style="margin-right: -24px;" color="white" round flat icon="more_vert">
                 <q-menu
                   class="overflow-hidden"
                   anchor="center right"
@@ -53,12 +46,12 @@
                         />
                       </q-item-section>
                     </q-item>
-                    <q-item
+                    <q-item 
                       clickable
                       @click="DeleteList(List._id)"
                       class="bg-negative"
                     >
-                      <q-item-section class="text-white text-weight-bold"
+                      <q-item-section  class="text-white text-weight-bold"
                         >Delete</q-item-section
                       >
                       <q-item-section class="flex">
@@ -69,6 +62,16 @@
                 </q-menu>
               </q-btn>
             </div>
+            <q-icon
+            v-bind:style="'margin-top: -40px; margin-right: -10px;'"
+              class="list_status"
+              name="check_circle"
+              size="2em"
+              :class="{
+                complete: List.is_Complete === true,
+                not_complete: List.is_Complete === false,
+              }"
+            />
           </div>
         </q-card-section>
         <q-card-section class="card_sec">
@@ -155,8 +158,9 @@
                   </q-tooltip>
                 </router-link>
               </q-item-section>
-              <q-item-section side>
-                <q-btn
+              <q-item-section  side>
+                <q-btn 
+                  style="margin-right: 5px;"  
                   @click="DeleteTask(Task._id)"
                   class="gt-xs"
                   size="12px"
@@ -176,8 +180,8 @@
                 filled
                 placeholder="Add task"
               />
-              <q-btn class="btn_style" @click="NewTask(List._id)">
-                <q-icon color="orange" name="add" />
+              <q-btn class="btn_style circlebg" style="color: #f5f5f5" @click="NewTask(List._id)">
+                <q-icon v-bind:style="{ color: List.color }"  name="add" />
               </q-btn>
             </div>
           </q-list>

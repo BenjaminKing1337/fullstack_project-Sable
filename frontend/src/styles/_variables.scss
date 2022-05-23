@@ -40,6 +40,10 @@ $cs: (
   color: map-get($cs, 4);
 }
 
+.circlebg {
+  clip-path: circle(25% at 50% 50%);
+}
+
 /* Scroll bar stylings */
 ::-webkit-scrollbar {
   width: 5px;

@@ -40,7 +40,6 @@
                   {{ Project.description }}
                 </q-tooltip>
               </div>
-              
             </div>
 
             <div class="col-auto">
@@ -78,11 +77,15 @@
               </q-btn>
             </div>
           </div>
-        <div class="text-subtitle2 text-weight-bold">{{ Project.deadline }}</div>
+          <div class="text-subtitle2 text-weight-bold">
+            {{ Project.deadline }}
+          </div>
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
         <router-link :to="`/workspace/${Project._id}`" class="remove_linkStyle">
-          <q-btn class="full-width">Open</q-btn>
+          <q-btn class="full-width">
+            <strong v-bind:style="{ color: Project.color }">Open</strong>
+          </q-btn>
           <!-- <p align="center" active clickable v-ripple>Open</p> -->
         </router-link>
       </q-card>
@@ -157,10 +160,17 @@ export default {
   setup() {
     const { pState, GetUserProjects, NewProject, DeleteProject, EditProject } =
       Projectcrud();
-    const { lState, GetAllLists, NewList, DeleteList, EditList, GetAllListsFromProject } = Listcrud();
-    
-    const userId = localStorage.getItem('userid');
-    
+    const {
+      lState,
+      GetAllLists,
+      NewList,
+      DeleteList,
+      EditList,
+      GetAllListsFromProject,
+    } = Listcrud();
+
+    const userId = localStorage.getItem("userid");
+
     let filterLists = (Lists, projectId) => {
       let listsFiltered = [];
       for (var i = 0; i < Lists.length; i++) {
@@ -170,7 +180,7 @@ export default {
       }
       return listsFiltered;
     };
-/*     let filterProjects = (Projects, userId) => {
+    /*     let filterProjects = (Projects, userId) => {
       let projectsFiltered = [];
       for (var i = 0; i < Projects.length; i++) {
         if (Projects[i].UserId == userId) {
@@ -199,7 +209,7 @@ export default {
       DeleteProject,
       EditProject,
       filterLists,
-      userId
+      userId,
     };
   },
   data() {
