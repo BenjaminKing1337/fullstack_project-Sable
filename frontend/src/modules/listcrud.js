@@ -8,7 +8,7 @@ const GetLists = () => {
   const Router = useRouter();
   const { pState, ProjectId } = Projectcrud;
   const ListId = computed(() => Route.params.id);
- 
+
   // Gets id from url
   var url = window.location.pathname.split("/");
   var url_id = url[2];
@@ -20,7 +20,7 @@ const GetLists = () => {
     ProjectId: "",
     Lists: {},
   });
-  
+
   const GetAllLists = async () => {
     try {
       await fetch(baseUrl + "/lists")
@@ -85,7 +85,10 @@ const GetLists = () => {
     };
     fetch(baseUrl + "/lists/update/" + ListId.value, RequestOptions)
       .then((Res) => Res.body)
-    Router.go(-1);
+      .then(Router.go(-1))
+      .then(() => {
+        return Router.go();
+      });
   };
 
   const List = ref({});
