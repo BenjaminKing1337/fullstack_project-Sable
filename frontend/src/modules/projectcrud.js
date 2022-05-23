@@ -7,7 +7,7 @@ const GetProjects = () => {
   const Router = useRouter();
   
   const ProjectId = computed(() => Route.params.id);
-  console.log("projectId: ", ProjectId);
+  // console.log("projectId: ", ProjectId);
 
   const pState = ref({
     NewName: "",
