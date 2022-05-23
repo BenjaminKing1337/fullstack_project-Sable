@@ -1,11 +1,10 @@
 <template>
- <q-page class="q-pa-xl page">
-    
-     <div>
+ <q-page class="flex column flex-center q-py-lg">
+     <div class="form">
       <q-card v-for="Item in Project" :key="Item._id">
-      <q-card-section class="q-mb-md">
+      <q-card-section class="q-pa-none">
         <div class="coloredName" v-bind:style="{ backgroundColor: Item.color }">
-          <h2 class="textShadow text-white">{{ Item.name }}</h2>
+          <h4 class="textShadow text-white">{{ Item.name }}</h4>
         </div>
           <q-item>
             <h6>{{ Item.description }}</h6>
@@ -20,52 +19,53 @@
 
     <q-card>
       <q-card-section>
-        <p>New Project Title</p>
-        <q-input
-          style="padding: 10px"
-          filled
-          color="orange-5"
-          class="q-mb-sm"
-          type="text"
-          placeholder="Title"
-          v-model="pState.NewName"
-        />
-        <p style="margin-top: -15px; font-size: 10px; color: red">Required!</p>
-        
-        <q-input
-          style="padding: 10px"
-          filled
-          color="orange-5"
-          class="q-mb-sm"
-          type="text"
-          placeholder="Description"
-          v-model="pState.NewDescription"
-        />
-        <q-input
-          style="padding: 10px"
-          filled
-          color="orange-5"
-          class="q-mb-sm"
-          type="date"
-          placeholder="Deadline"
-          v-model="pState.NewDeadline"
-        />
-        <hr />
-        <br />
+        <q-form @submit.prevent="EditProject">
+          <q-input
+            style="padding: 10px"
+            filled
+            color="orange-5"
+            class="q-mb-sm"
+            type="text"
+            placeholder="Title"
+            v-model="pState.NewName"
+            no-error-icon
+            :rules="[
+              (val) => (val && val.length > 0) || 'Please type something',
+            ]"
+          />
+          
+          <q-input
+            style="padding: 10px"
+            filled
+            color="orange-5"
+            class="q-mb-sm"
+            type="text"
+            placeholder="Description"
+            v-model="pState.NewDescription"
+          />
+          <q-input
+            style="padding: 10px"
+            filled
+            color="orange-5"
+            class="q-mb-sm"
+            type="date"
+            placeholder="Deadline"
+            v-model="pState.NewDeadline"
+          />
+          <br />
 
-        <q-color
-          v-model="pState.NewColor"
-          no-header
-          no-footer
-          default-view="palette"
-          class="my-picker scroll overflow-hidden"
-        />
-        <q-badge color="grey-3" text-color="black" class="q-mb-sm">
-          {{ pState.NewColor }}
-        </q-badge>
-        <hr />
-        <q-btn @click="EditProject()">Update Project</q-btn>
-        <br />
+          <q-color
+            v-model="pState.NewColor"
+            no-header
+            no-footer
+            default-view="palette"
+            class="my-picker scroll overflow-hidden"
+          />
+          <q-badge color="grey-3" text-color="black" class="q-mb-sm">
+            {{ pState.NewColor }}
+          </q-badge>
+          <q-btn label="Update Project" type="submit" class="myOrange q-mt-lg text-white" />
+        </q-form>
       </q-card-section>
     </q-card>
     </div>
@@ -130,4 +130,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form {
+  width: clamp(315px, 25vw, 600px);
+}
 </style>

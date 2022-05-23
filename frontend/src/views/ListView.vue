@@ -19,7 +19,6 @@
     <q-card >
       <q-card-section>
         <q-form @submit.prevent="EditList" class="flex column center">
-          <h6>New List Title</h6>
           <q-input
             style="padding: 10px"
             filled
