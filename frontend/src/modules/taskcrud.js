@@ -14,7 +14,7 @@ const GetTasks = () => {
   const tState = ref({
     NewAuthor: "",
     NewDescription: "",
-    NewStatus: "",
+    NewStatus: "not-done",
     NewIs_Optional: "",
     NewDeadline: "",
     NewTaskItem: "",

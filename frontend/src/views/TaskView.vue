@@ -1,10 +1,9 @@
 <template>
-  <q-page class="q-pa-xl page">
-
-    <div>
+  <q-page class="flex column flex-center q-py-lg">
+    <div class="form">
       <q-card v-for="Item in Task" :key="Item._id">
         <q-card-section class="q-mb-md">
-          <h2>{{ Item.task }}</h2>
+          <h4>{{ Item.task }}</h4>
         </q-card-section>
 
         <q-card-section>
@@ -45,9 +44,7 @@
             <hr>
           </div>
 
-          <div>
-            <p>New Task Name</p>
-
+          <q-form @submit.prevent="EditTask">
             <q-input
               style="padding: 10px"
               filled
@@ -56,10 +53,11 @@
               type="text"
               placeholder="Name"
               v-model="tState.NewTaskItem"
+              no-error-icon
+              :rules="[
+                (val) => (val && val.length > 0) || 'Please type something',
+              ]"
             />
-            <p style="margin-top: -15px; font-size: 10px; color: red">
-              Required!
-            </p>
 
             <q-input
               style="padding: 10px"
@@ -79,15 +77,11 @@
               placeholder="Deadline"
               v-model="tState.NewDeadline"
             />
-            <q-input
-              style="padding: 10px"
-              filled
-              color="orange-5"
-              class="q-mb-sm"
-              type="text"
-              placeholder="Status"
-              v-model="tState.NewStatus"
-            />
+            <div class="column q-mb-lg">
+              <q-radio v-model="tState.NewStatus" val="done" label="Done" />
+              <q-radio v-model="tState.NewStatus" val="pending" label="Pending" />
+              <q-radio v-model="tState.NewStatus" val="not-done" label="Not-done" />
+            </div>
             <input
               type="checkbox"
               placeholder="Is Optional?"
@@ -95,9 +89,9 @@
             />
             <span> Is Optional?</span>
             <hr />
-            <q-btn @click="EditTask()">Update Task</q-btn>
+            <q-btn label="Update Task" type="submit" class="myOrange q-mt-lg text-white" />
             <br />
-          </div>
+          </q-form>
         </q-card-section>
       </q-card>
     </div>
@@ -185,4 +179,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form {
+  width: clamp(315px, 25vw, 600px);
+}
 </style>

@@ -2,9 +2,9 @@
   <q-page class="flex column flex-center">
     <div class="form">
       <q-card v-for="Item in List" :key="Item._id">
-      <q-card-section>
+      <q-card-section class="q-pa-none">
         <div class="coloredName" v-bind:style="{ backgroundColor: Item.color }">
-          <h2 class="textShadow text-white">{{ Item.title }}</h2>
+          <h4 class="textShadow text-white">{{ Item.title }}</h4>
         </div>
       </q-card-section>
 
@@ -75,10 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.coloredName {
-  border-radius: 5px;
-  padding: 1%;
-}
 .my-picker {
   max-width: 280px;
 }
