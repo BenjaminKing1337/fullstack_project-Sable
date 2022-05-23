@@ -29,7 +29,17 @@
                   {{ Project.name }}
                 </q-tooltip>
               </div>
-              <div class="text-subtitle2">{{ Project.description }}</div>
+              <div class="text-subtitle2 ellipsis-2-lines">
+                {{ Project.description }}
+                <q-tooltip
+                  class="bg-orange text-body2"
+                  anchor="top middle"
+                  self="bottom middle"
+                  :offset="[10, 10]"
+                >
+                  {{ Project.description }}
+                </q-tooltip>
+              </div>
               
             </div>
 
@@ -45,9 +55,7 @@
                   <q-list>
                     <q-item clickable :to="`/project/${Project._id}`">
                       <q-item-section class="flex text-weight-bold"
-                        ><q-btn @click="EditProject(Project.value._id)">
-                          Edit Project
-                        </q-btn></q-item-section
+                        >Edit</q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon
@@ -59,9 +67,7 @@
                     </q-item>
                     <q-item clickable class="bg-negative">
                       <q-item-section class="text-white text-weight-bold"
-                        ><q-btn @click="DeleteProject(Project._id)">
-                          Delete Project
-                        </q-btn></q-item-section
+                        >Delete</q-item-section
                       >
                       <q-item-section class="flex">
                         <q-icon color="white" size="1.5em" name="delete" />
@@ -72,10 +78,10 @@
               </q-btn>
             </div>
           </div>
-        <div class="text-subtitle2">{{ Project.deadline }}</div>
+        <div class="text-subtitle2 text-weight-bold">{{ Project.deadline }}</div>
         </q-card-section>
         <!-- <router-link :to="'/lists/' + Project._id"></router-link> -->
-        <router-link  :to="`/workspace/${Project._id}`">
+        <router-link :to="`/workspace/${Project._id}`" class="remove_linkStyle">
           <q-btn class="full-width">Open</q-btn>
           <!-- <p align="center" active clickable v-ripple>Open</p> -->
         </router-link>
@@ -261,5 +267,9 @@ export default {
 }
 .my-picker {
   max-width: 280px;
+}
+.remove_linkStyle {
+  text-decoration: none;
+  color: black;
 }
 </style>
