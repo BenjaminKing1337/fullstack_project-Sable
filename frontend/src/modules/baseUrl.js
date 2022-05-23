@@ -1,4 +1,8 @@
 // const baseUrl = 'https://sableplan.herokuapp.com'
 const baseUrl = 'http://localhost:4000';
 
-export default baseUrl;
+import { useRouter } from "vue-router";
+  const Router = useRouter();
+const goBack = Router.go(-1);
+
+export default { baseUrl, goBack };
