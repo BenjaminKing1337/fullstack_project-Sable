@@ -68,9 +68,9 @@ const GetUsers = () => {
     };
     fetch(baseUrl + "/users/update/" + UserId.value, RequestOptions)
       .then((Res) => Res.body)
-      .then((Res) => {
-        console.log(Res);
-      });
+      // .then((Res) => {
+      //   console.log(Res);
+      // });
     Router.push("/users");
   };
 

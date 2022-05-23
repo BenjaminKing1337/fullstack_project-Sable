@@ -68,7 +68,7 @@ const GetTasks = () => {
         deadline: tState.value.NewDeadline,
       }),
     };
-    console.log(RequestOptions.body)
+    // console.log(RequestOptions.body)
     tState.value.NewTaskItem = ""
     fetch(baseUrl + "/tasks/new", RequestOptions).then(() => {
       GetAllTasks(); // Updates page
@@ -102,9 +102,9 @@ const GetTasks = () => {
     };
     fetch(baseUrl + "/tasks/update/" + TaskId.value, RequestOptions)
       .then((Res) => Res.body)
-      .then((Res) => {
-        console.log(Res);
-      });
+      // .then((Res) => {
+      //   console.log(Res);
+      // });
     Router.go(-1);
   };
 

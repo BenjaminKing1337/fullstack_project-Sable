@@ -87,9 +87,9 @@ const GetProjects = () => {
     };
     fetch(baseUrl + "/projects/update/" + ProjectId.value, RequestOptions)
       .then((Res) => Res.body)
-      .then((Res) => {
-        console.log(Res);
-      });
+      // .then((Res) => {
+      //   console.log(Res);
+      // });
     Router.push("/projects");
   };
 

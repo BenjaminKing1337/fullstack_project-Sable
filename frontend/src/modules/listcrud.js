@@ -87,9 +87,9 @@ const GetLists = () => {
     };
     fetch(baseUrl + "/lists/update/" + ListId.value, RequestOptions)
       .then((Res) => Res.body)
-      .then((Res) => {
-        console.log(Res);
-      });
+      // .then((Res) => {
+      //   console.log(Res);
+      // });
     Router.go(-1);
   };
 

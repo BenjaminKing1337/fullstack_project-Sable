@@ -3,111 +3,179 @@
     <h5>Workspace</h5>
     <div class="flex no-wrap q-mb-md q-pb-md" style="overflow-x: auto">
       <!-- LIST LOOP  -->
-       <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
-          <q-card-section
-            class="text-white title_sec"
-            v-bind:style="{ backgroundColor: List.color }"
-          >
-            <div class="row no-wrap items-center">
-              <div class="col">
-                <div class="text-h6 line-adjust ellipsis textShadow">
+      <q-card class="my-card" v-for="List in lState.Lists" :key="List._id">
+        <q-card-section
+          class="text-white title_sec"
+          v-bind:style="{ backgroundColor: List.color }"
+        >
+          <div class="row no-wrap items-center">
+            <div class="col">
+              <div class="text-h6 line-adjust ellipsis textShadow">
+                {{ List.title }}
+                <q-tooltip
+                  class="bg-orange text-body2"
+                  anchor="top middle"
+                  self="bottom middle"
+                  :offset="[10, 10]"
+                >
                   {{ List.title }}
+                </q-tooltip>
+              </div>
+            </div>
+            <q-icon
+              class="list_status"
+              name="check_circle"
+              size="2em"
+              :class="{
+                complete: List.is_Complete === true,
+                not_complete: List.is_Complete === false,
+              }"
+            />
+            <div class="col-auto">
+              <q-btn color="white" round flat icon="more_vert">
+                <q-menu
+                  class="overflow-hidden"
+                  anchor="center right"
+                  self="center left"
+                  auto-close
+                  fit
+                >
+                  <q-list>
+                    <q-item clickable :to="`/list/${List._id}`">
+                      <q-item-section class="flex text-weight-bold"
+                        >Edit</q-item-section
+                      >
+                      <q-item-section class="flex">
+                        <q-icon
+                          class="myOrange_color"
+                          size="1.5em"
+                          name="edit"
+                        />
+                      </q-item-section>
+                    </q-item>
+                    <q-item
+                      clickable
+                      @click="DeleteList(List._id)"
+                      class="bg-negative"
+                    >
+                      <q-item-section class="text-white text-weight-bold"
+                        >Delete</q-item-section
+                      >
+                      <q-item-section class="flex">
+                        <q-icon color="white" size="1.5em" name="delete" />
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-section class="card_sec">
+          <q-list class="list_sec">
+            <!-- TASK LOOP -->
+            <q-item
+              clickable
+              v-for="Task in filterTasks(tState.Tasks, List._id)"
+              :key="Task._id"
+            >
+              <q-item-section>
+                <router-link :to="`/task/${Task._id}`" class="remove_linkStyle">
+                  <q-item-label>{{ Task.task }}</q-item-label>
+                  <q-item-label
+                    class="status text-weight-bold"
+                    caption
+                    :class="{
+                      done: Task.status === 'done',
+                      pending: Task.status === 'pending',
+                      'not-done': Task.status === 'not-done',
+                    }"
+                  >
+                    {{ Task.status }}
+                  </q-item-label>
+
                   <q-tooltip
+                    v-if="Task.description || Task.deadline"
                     class="bg-orange text-body2"
                     anchor="top middle"
                     self="bottom middle"
                     :offset="[10, 10]"
                   >
-                    {{ List.title }}
+                    <div>
+                      
+                      <div class="text-black" style="max-width: 300px">
+                        <h4 class="q-mb-none">
+                          {{ Task.task }}
+                        </h4>
+                        <p class="text-white">
+                          by {{ Task.author }}
+                        </p>
+                      </div>
+                      <div class="text-black" style="max-width: 300px">
+                        Description:
+                        <p class="text-white">
+                          {{ Task.description }}
+                        </p>
+                      </div>
+                      <div class="text-black" style="max-width: 300px">
+                        Deadline:
+                        <p class="text-white">
+                          {{ Task.deadline }}
+                        </p>
+                      </div>
+                      <div class="text-black" style="max-width: 300px">
+                        Status:
+                        <p class="text-white">
+                          {{ Task.status }}
+                        </p>
+                      </div>
+                      <div class="text-black" style="max-width: 300px">
+                        Optional?:
+                        <p class="text-white">
+                          {{ Task.is_optional }}
+                        </p>
+                      </div>
+                    </div>
                   </q-tooltip>
-                </div>
-              </div>
-              <q-icon 
-                class="list_status" 
-                name="check_circle"
-                size="2em" 
-                :class="{
-                  'complete': List.is_Complete === true,
-                  'not_complete': List.is_Complete === false,
-                }" 
-              />
-              <div class="col-auto">
-                <q-btn color="white" round flat icon="more_vert">
-                  <q-menu
-                    class="overflow-hidden"
-                    anchor="center right"
-                    self="center left"
-                    auto-close
-                    fit
+                  <q-tooltip
+                    v-else
+                    class="flex bg-orange text-body2"
+                    anchor="top middle"
+                    self="bottom middle"
+                    :offset="[10, 10]"
                   >
-                    <q-list>
-                      <q-item clickable :to="`/list/${List._id}`">
-                        <q-item-section class="flex text-weight-bold"
-                          >Edit</q-item-section
-                        >
-                        <q-item-section class="flex">
-                          <q-icon
-                            class="myOrange_color"
-                            size="1.5em"
-                            name="edit"
-                          />
-                        </q-item-section>
-                      </q-item>
-                      <q-item
-                        clickable
-                        @click="DeleteList(List._id)"
-                        class="bg-negative"
-                      >
-                        <q-item-section class="text-white text-weight-bold"
-                          >Delete</q-item-section
-                        >
-                        <q-item-section class="flex">
-                          <q-icon color="white" size="1.5em" name="delete" />
-                        </q-item-section>
-                      </q-item>
-                    </q-list>
-                  </q-menu>
-                </q-btn>
-              </div>
-            </div>
-          </q-card-section>
-          <q-card-section class="card_sec">
-            <q-list class="list_sec">
-              <!-- TASK LOOP -->
-              <q-item
-                clickable
-                v-for="Task in filterTasks(tState.Tasks, List._id)" :key="Task._id"
-              >
-                <q-item-section>
-                  <router-link :to="`/task/${Task._id}`" class="remove_linkStyle">
-                    <q-item-label>{{ Task.task }}</q-item-label>
-                    <q-item-label
-                      class="status text-weight-bold"
-                      caption
-                      :class="{
-                        'done': Task.status === 'done',
-                        'pending': Task.status === 'pending',
-                        'not-done': Task.status === 'not-done',
-                      }"
-                    >
-                      {{ Task.status }}
-                    </q-item-label>
-                  </router-link>
-                </q-item-section>
-                <q-item-section side>
-                  <q-btn @click="DeleteTask(Task._id)" class="gt-xs" size="12px" round icon="delete" />
-                </q-item-section>
-              </q-item>
+                    <div>Click to add details</div>
+                  </q-tooltip>
+                </router-link>
+              </q-item-section>
+              <q-item-section side>
+                <q-btn
+                  @click="DeleteTask(Task._id)"
+                  class="gt-xs"
+                  size="12px"
+                  round
+                  icon="delete"
+                />
+              </q-item-section>
+            </q-item>
 
-              <div class="flex q-pb-sm q-pt-sm add_task">
-                <q-input v-model="tState.NewTaskItem" debounce="1000000000" class="q-pl-none q-pr-none input_style" bg-color="transparent" color="orange" filled placeholder="Add task" />
-                <q-btn class="btn_style" @click="NewTask(List._id)">
-                  <q-icon color="orange" name="add" />
-                </q-btn>
-              </div>
-            </q-list>
-          </q-card-section>
-       </q-card>  
+            <div class="flex q-pb-sm q-pt-sm add_task">
+              <q-input
+                v-model="tState.NewTaskItem"
+                debounce="1000000000"
+                class="q-pl-none q-pr-none input_style"
+                bg-color="transparent"
+                color="orange"
+                filled
+                placeholder="Add task"
+              />
+              <q-btn class="btn_style" @click="NewTask(List._id)">
+                <q-icon color="orange" name="add" />
+              </q-btn>
+            </div>
+          </q-list>
+        </q-card-section>
+      </q-card>
     </div>
     <q-btn class="q-pr-lg q-pl-xs myOrange text-white" @click="prompt = true">
       <q-icon name="add" />
@@ -221,7 +289,7 @@ export default {
   },
   data() {
     return {
-      prompt: false
+      prompt: false,
     };
   },
 };
@@ -234,7 +302,7 @@ export default {
   max-width: 400px;
   box-shadow: none;
   margin: 20px 20px 0 0;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 
   .title_sec {
     height: 45px;
@@ -245,18 +313,18 @@ export default {
       line-height: 1.6rem;
       padding: 10px 0 0 15px;
     }
-    .list_status{
+    .list_status {
       height: 100%;
       visibility: hidden;
-      i{
+      i {
         padding: 0 !important;
       }
     }
-    .complete{
+    .complete {
       visibility: visible;
       color: limegreen;
     }
-    .not-complete{
+    .not-complete {
       visibility: hidden;
     }
   }
@@ -279,20 +347,20 @@ export default {
     .not-done {
       background-color: rgb(247, 112, 112);
     }
-    .remove_linkStyle{
+    .remove_linkStyle {
       text-decoration: none;
       color: black;
     }
-    .add_task{
+    .add_task {
       width: 100%;
-      .input_style{
+      .input_style {
         width: 85%;
         padding-left: 30px;
       }
-      .btn_style{
+      .btn_style {
         width: 20%;
         padding: 0;
-        i{
+        i {
           padding: 0;
         }
       }
