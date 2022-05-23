@@ -268,7 +268,6 @@ export default {
     .status {
       border-radius: 10px;
       text-align: center;
-      position: absolute;
       width: 40%;
     }
     .done {
