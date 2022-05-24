@@ -236,7 +236,7 @@
         style="max-width: 200px"
         type="submit"
         @click="refresh()"
-        class="q-pa-xs myOrange text-white"
+        class="q-pa-xs bg-white text-white"
       >
         <div class="flex">
           <q-icon name="refresh" /> &nbsp;&nbsp;
